@@ -6,6 +6,15 @@ public class User
     private Boolean IsActive;
     private DateTime DateCreated;
 
+    public User()
+    {
+        Username = "";
+        Password = "";
+        Email = "";
+        IsActive = false;
+        DateCreated = DateTime.Now;
+    }
+
     public User(string username, string password, string email)
     {
         Username = username;
