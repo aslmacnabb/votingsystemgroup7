@@ -5,6 +5,6 @@ namespace server.IManagers
         /**
         * Authenticates the User and returns its type (voter or admin).
         */
-        public string GetUserType(string username, string password);
+        public static abstract string GetUserType(string username, string password);
     }
 }
