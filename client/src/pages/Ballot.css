@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap');
+
+@font-face {
+  font-family: "Thrustline";
+  src: url("/fonts/Thrustline.ttf") format("truetype");
+}
+
+
+.ballot-container {
+  min-height: 100vh;
+  background-color: #210706;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.ballot-card {
+  background: #F1E6D2;
+  padding: 40px;
+  border-radius: 12px;
+  width: 450px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+
+.ballot-title {
+  font-family: "Thrustline", serif;
+  color: #891D1A;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.ballot-option {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #5E657B;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: "Manrope", sans-serif;
+}
+
+
+.ballot-option:hover {
+  background-color: #5E657B;
+  color: white;
+}
+
+
+.ballot-option.selected {
+  background-color: #891D1A;
+  color: #F1E6D2;
+  border-color: #891D1A;
+}
+
+
+.ballot-option input {
+  margin-right: 10px;
+}
+
+
+.ballot-button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #891D1A;
+  color: #F1E6D2;
+  border: none;
+  border-radius: 6px;
+  font-family: "Manrope", sans-serif;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ballot-button:hover {
+  background-color: #5E657B;
+}
+
+.ballot-button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.ballot-section {
+  margin-bottom: 25px;
+}
+
+.ballot-section h2 {
+  font-family: "Manrope", sans-serif;
+  color: #5E657B;
+  margin-bottom: 10px;
+}
