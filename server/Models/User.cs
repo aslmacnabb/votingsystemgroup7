@@ -3,7 +3,7 @@ public class User
     private string Username;
     private string Password;
     private string Email;
-    private Boolean IsActive;
+    private bool IsActive;
     private DateTime DateCreated;
 
     public User(string username, string password, string email)
