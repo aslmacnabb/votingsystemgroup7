@@ -1,14 +1,18 @@
 import { useState } from "react";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ username, password });
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  
+  navigate("/ballot");
+};
+  const navigate = useNavigate();
 
   return (
     <div className="login-container">
