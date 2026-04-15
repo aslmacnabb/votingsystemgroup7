@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\server",
+    "\\server\\Data",
+    "\\server\\IAccessors",
+    "\\server\\IManagers",
+    "\\server\\Managers",
+    "\\server\\Models",
+    "\\tests",
+    "\\tests\\AccessorTests",
+    "\\tests\\ManagerTests"
+  ],
+  "SelectedNode": "\\tests\\ManagerTests\\UserManagerTests.cs",
+  "PreviewInSolutionExplorer": false
+}
