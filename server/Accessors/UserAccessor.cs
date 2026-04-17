@@ -5,7 +5,7 @@ namespace server.Accessors
 {
     public class UserAccessor : IUserAccessor
     {
-        public static SqlConnection GetConnection()
+        public SqlConnection GetConnection()
         {
             using (SqlConnection conn = new SqlConnection())
             {
@@ -18,13 +18,14 @@ namespace server.Accessors
                 {
                     conn.Open();
                     return conn;
-                } catch (Exception es)
+                }
+                catch (Exception es)
                 {
                     return null;
                 }
             }
         }
-        public static bool Authenticate(string username, string password)
+        public bool Authenticate(string username, string password)
         {
             string sql = "SELECT user_id FROM USER_ACCOUNT WHERE username = @username AND password_hash = @password_hash";
             using (SqlCommand cmd = new SqlCommand(sql, GetConnection()))
@@ -39,7 +40,8 @@ namespace server.Accessors
                     cmd.Connection.Open();
                     cmd.ExecuteScalar();
                     return true;
-                } catch (SqlException sx)
+                }
+                catch (SqlException sx)
                 {
                     Console.WriteLine("User not found!");
                     return false;
@@ -47,7 +49,7 @@ namespace server.Accessors
             }
         }
 
-        public static string GetUserType(string username)
+        public string GetUserType(string username)
         {
             string sql = "SELECT type FROM USER_ACCOUNT WHERE username = @username";
             using (SqlCommand cmd = new SqlCommand(sql, GetConnection()))
@@ -60,7 +62,8 @@ namespace server.Accessors
                     cmd.Connection.Open();
                     string type = (string)cmd.ExecuteScalar();
                     return type;
-                } catch (SqlException sx)
+                }
+                catch (SqlException sx)
                 {
                     Console.WriteLine("User not found!");
                     return "Invalid";
@@ -68,12 +71,12 @@ namespace server.Accessors
             }
         }
 
-        public static User PullUser(string username)
+        public User PullUser(string username)
         {
             return new User();
         }
 
-        public static void PushUser(User user)
+        public void PushUser(User user)
         {
             return;
         }

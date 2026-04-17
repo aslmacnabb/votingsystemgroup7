@@ -1,4 +1,5 @@
-﻿namespace AccessorTests
+﻿using server.IAccessors;
+namespace AccessorTests
 {
     [TestClass]
     public sealed class AuthenticateTests
@@ -6,7 +7,6 @@
         [TestMethod]
         public void Authenticate_ReturnsTrue()
         {
-
         }
 
         [TestMethod]
