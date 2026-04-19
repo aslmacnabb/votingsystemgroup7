@@ -4,21 +4,25 @@ namespace server.Accessors
 {
     public class VoterProfileAccessor : IVoterProfileAccessor
     {
+        public string GetSqlString(string data)
+        {
+            return "use VotingSystemDB; SELECT " + data + " FROM VoterProfile WHERE VoterId = @id;";
+        }
         public int GetInt(int id, string data)
         {
-            string sql = "use VotingSystemDB; SELECT " + data + " FROM VoterProfile WHERE VoterId = @id;";
+            string sql = GetSqlString(data);
             return GenericAccessor.GetInt(id, sql);
         }
 
         public string GetString(int id, string data)
         {
-            string sql = "use VotingSystemDB; SELECT " + data + " FROM VoterProfile WHERE VoterId = @id;";
+            string sql = GetSqlString(data);
             return GenericAccessor.GetString(id, sql);
         }
 
         public DateTime GetDateTime(int id, string data)
         {
-            string sql = "use VotingSystemDB; SELECT " + data + " FROM VoterProfile WHERE VoterId = @id;";
+            string sql = GetSqlString(data);
             return GenericAccessor.GetDateTime(id, sql);
         }
     }

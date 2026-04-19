@@ -3,6 +3,11 @@ namespace server.IAccessors
     public interface IUserAccessor
     {
         /*
+        Returns an SQL query for use by a Getter.
+        */
+        public string GetSqlString(string data);
+        
+        /*
         Returns an int from the database based on specified parameters.
         */
         public int GetInt(int id, string data);
