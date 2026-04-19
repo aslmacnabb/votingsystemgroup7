@@ -7,23 +7,12 @@ namespace server.Accessors
     {
         public SqlConnection GetConnection()
         {
-            using (SqlConnection conn = new SqlConnection())
-            {
-                // TODO: Set the database IP as the program runs
-                conn.ConnectionString = "Data Source = 192.168.122.5;" +
-                "Initial Catalog=TestDB;" +
-                "User id=HUSKERSADMIN;" +
-                "Password=CORNADMIN;";
-                try
-                {
-                    conn.Open();
-                    return conn;
-                }
-                catch (Exception es)
-                {
-                    return null;
-                }
-            }
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString = "Data Source = 192.168.122.252;" +
+            "Initial Catalog=TestDB;" +
+            "User id=sa;" +
+            "Password=Charter9 Untapped Carnivore;";
+            return conn;
         }
         public bool Authenticate(string username, string password)
         {
@@ -73,37 +62,27 @@ namespace server.Accessors
 
         public string GetUserEmail(string username)
         {
-            try
+            SqlConnection conn = GetConnection();
+            string sql = "use VotingSystemDB; SELECT Email FROM UserAccount WHERE Username = @username;";
+            string email;
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
             {
-                SqlConnection conn = new SqlConnection();
-                conn.ConnectionString = "Data Source = 192.168.122.252;" +
-                "Initial Catalog=TestDB;" +
-                "User id=sa;" +
-                "Password=Charter9 Untapped Carnivore;";
-                conn.Open();
-                Console.WriteLine("Connection successful!");
-                string sql = "use VotingSystemDB; SELECT Email FROM UserAccount WHERE Username = @username;";
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
+                cmd.Parameters["@username"].Value = username;
+                try
                 {
-                    cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
-                    cmd.Parameters["@username"].Value = username;
-                    try
-                    {
-                        string email = (string)cmd.ExecuteScalar();
-                        cmd.Connection.Close();
-                        return email;
-                    }
-                    catch (SqlException sx)
-                    {
-                        Console.WriteLine(sx);
-                        return "Function returned with error";
-                    }
+                    cmd.Connection.Open();
+                    Console.WriteLine("Connection successful!");
+                    email = (string)cmd.ExecuteScalar();
                 }
-            } catch (Exception es)
-            {
-                Console.WriteLine(es);
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                    email = "Function returned with error";
+                }
+                cmd.Connection.Close();
             }
-            return "Function returned";
+            return email;
         }
 
         public User PullUser(string username)
