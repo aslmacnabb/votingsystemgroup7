@@ -14,76 +14,135 @@ namespace server.Accessors
             "Password=Charter9 Untapped Carnivore;";
             return conn;
         }
+
+        public int GetInt(string username, string data)
+        {
+            SqlConnection conn = GetConnection();
+            string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE Username = @username;";
+            int output;
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
+                cmd.Parameters["@username"].Value = username;
+                try
+                {
+                    cmd.Connection.Open();
+                    output = (int)cmd.ExecuteScalar();
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                    output = -1;
+                }
+                cmd.Connection.Close();
+            }
+            return output;
+        }
+
+        public string GetString(string username, string data)
+        {
+            SqlConnection conn = GetConnection();
+            string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE Username = @username;";
+            string output;
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
+                cmd.Parameters["@username"].Value = username;
+                try
+                {
+                    cmd.Connection.Open();
+                    output = (string)cmd.ExecuteScalar();
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                    output = "Error";
+                }
+                cmd.Connection.Close();
+            }
+            return output;
+        }
+
+        public DateTime GetDateTime(string username, string data)
+        {
+            SqlConnection conn = GetConnection();
+            string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE Username = @username;";
+            DateTime output = new DateTime();
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
+                cmd.Parameters["@username"].Value = username;
+                try
+                {
+                    cmd.Connection.Open();
+                    output = (DateTime)cmd.ExecuteScalar();
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                }
+                cmd.Connection.Close();
+            }
+            return output;
+        }
+        
         public bool Authenticate(string username, string password)
         {
-            string sql = "SELECT user_id FROM USER_ACCOUNT WHERE username = @username AND password_hash = @password_hash";
-            using (SqlCommand cmd = new SqlCommand(sql, GetConnection()))
+            string expectedPassword = GetPasswordHash(username);
+            if (password == expectedPassword)
             {
-                cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
-                cmd.Parameters.Add("@password_hash", System.Data.SqlDbType.NVarChar, 25);
-                cmd.Parameters["@username"].Value = username;
-                // TODO: hash password
-                cmd.Parameters["@password_hash"].Value = password;
-                try
-                {
-                    cmd.Connection.Open();
-                    cmd.ExecuteScalar();
-                    return true;
-                }
-                catch (SqlException sx)
-                {
-                    Console.WriteLine("User not found!");
-                    return false;
-                }
+                return true;
+            } else
+            {
+                return false;
             }
         }
 
-        public string GetUserType(string username)
+        public string GetPasswordHash(string username)
         {
-            SqlConnection conn = GetConnection();
-            string sql = "use VotingSystemDB; SELECT AccountType FROM UserAccount WHERE Username = @username;";
-            string type;
-            using (SqlCommand cmd = new SqlCommand(sql, conn))
-            {
-                cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
-                cmd.Parameters["@username"].Value = username;
-                try
-                {
-                    cmd.Connection.Open();
-                    type = (string)cmd.ExecuteScalar();
-                }
-                catch (SqlException sx)
-                {
-                    Console.WriteLine(sx);
-                    type = "Error";
-                }
-                cmd.Connection.Close();
-            }
-            return type;
+            return GetString(username, "PasswordHash");
         }
 
-        public string GetUserEmail(string username)
+        public string GetEmail(string username)
         {
-            SqlConnection conn = GetConnection();
-            string sql = "use VotingSystemDB; SELECT Email FROM UserAccount WHERE Username = @username;";
-            string email;
-            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            return GetString(username, "Email");
+        }
+
+        public string GetAccountType(string username)
+        {
+            return GetString(username, "AccountType");
+        }
+
+        public bool GetActiveStatus(string username)
+        {
+            int IsActive = GetInt(username, "IsActive");
+            if (IsActive == 1)
             {
-                cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
-                cmd.Parameters["@username"].Value = username;
-                try
-                {
-                    cmd.Connection.Open();
-                    email = (string)cmd.ExecuteScalar();
-                }
-                catch (SqlException sx)
-                {
-                    Console.WriteLine(sx);
-                    email = "Error";
-                }
-                cmd.Connection.Close();
+                return true;
+            } else
+            {
+                return false;
             }
-            return email;
+        }
+
+        public DateTime GetCreatedDate(string username)
+        {
+            return GetDateTime(username, "CreatedDate");
+        }
+
+        public DateTime GetLastLoginDate(string username)
+        {
+            return GetDateTime(username, "LastLogin");
+        }
+
+        public int GetFailedLoginAttempts(string username)
+        {
+            return GetInt(username, "FailedLoginAttempts");
+        }
+
+        public DateTime GetLockedUntil(string username)
+        {
+            return GetDateTime(username, "LockedUntil");
         }
 
         public User PullUser(string username)

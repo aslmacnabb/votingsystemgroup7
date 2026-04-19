@@ -2,7 +2,7 @@ using server.Accessors;
 
 // test UserAccessor
 UserAccessor ua = new UserAccessor();
-Console.WriteLine(ua.GetUserEmail("HuskersAdmin"));
+Console.WriteLine(ua.GetEmail("HuskersAdmin"));
 
 var builder = WebApplication.CreateBuilder(args);
 
