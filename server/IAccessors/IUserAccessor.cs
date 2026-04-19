@@ -1,5 +1,3 @@
-using System.Data.SqlClient;
-
 namespace server.IAccessors
 {
     public interface IUserAccessor
