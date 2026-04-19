@@ -1,3 +1,4 @@
 # binary files
 server/bin/
 server/obj/
+tests/*/obj
