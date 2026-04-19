@@ -1,3 +1,9 @@
+using server.Accessors;
+
+// test UserAccessor
+UserAccessor ua = new UserAccessor();
+Console.WriteLine(ua.GetUserEmail("HuskersAdmin"));
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services

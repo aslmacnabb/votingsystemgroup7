@@ -20,6 +20,11 @@ namespace server.IAccessors
         public string GetUserType(string username);
 
         /**
+        * Returns the email associated with the passed username.
+        */
+        public string GetUserEmail(string username);
+
+        /**
         * Returns a User object with all data fields supplied directly
         * from the database.
         */

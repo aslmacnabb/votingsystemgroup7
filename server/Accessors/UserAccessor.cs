@@ -71,6 +71,41 @@ namespace server.Accessors
             }
         }
 
+        public string GetUserEmail(string username)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection();
+                conn.ConnectionString = "Data Source = 192.168.122.252;" +
+                "Initial Catalog=TestDB;" +
+                "User id=sa;" +
+                "Password=Charter9 Untapped Carnivore;";
+                conn.Open();
+                Console.WriteLine("Connection successful!");
+                string sql = "use VotingSystemDB; SELECT Email FROM UserAccount WHERE Username = @username;";
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
+                    cmd.Parameters["@username"].Value = username;
+                    try
+                    {
+                        string email = (string)cmd.ExecuteScalar();
+                        cmd.Connection.Close();
+                        return email;
+                    }
+                    catch (SqlException sx)
+                    {
+                        Console.WriteLine(sx);
+                        return "Function returned with error";
+                    }
+                }
+            } catch (Exception es)
+            {
+                Console.WriteLine(es);
+            }
+            return "Function returned";
+        }
+
         public User PullUser(string username)
         {
             return new User();
