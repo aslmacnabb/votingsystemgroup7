@@ -49,7 +49,7 @@ namespace server.Accessors
         public bool Authenticate(string username, string password)
         {
             int id = GetIdFromUsername(username);
-            string expectedPassword = GetPasswordHash(id);
+            string expectedPassword = GetString(id, "PasswordHash");
             if (password == expectedPassword)
             {
                 return true;
@@ -57,53 +57,6 @@ namespace server.Accessors
             {
                 return false;
             }
-        }
-
-        public string GetPasswordHash(int id)
-        {
-            return GetString(id, "PasswordHash");
-        }
-
-        public string GetEmail(int id)
-        {
-            return GetString(id, "Email");
-        }
-
-        public string GetAccountType(int id)
-        {
-            return GetString(id, "AccountType");
-        }
-
-        public bool GetActiveStatus(int id)
-        {
-            int IsActive = GetInt(id, "IsActive");
-            if (IsActive == 1)
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
-        }
-
-        public DateTime GetCreatedDate(int id)
-        {
-            return GetDateTime(id, "CreatedDate");
-        }
-
-        public DateTime GetLastLoginDate(int id)
-        {
-            return GetDateTime(id, "LastLogin");
-        }
-
-        public int GetFailedLoginAttempts(int id)
-        {
-            return GetInt(id, "FailedLoginAttempts");
-        }
-
-        public DateTime GetLockedUntil(int id)
-        {
-            return GetDateTime(id, "LockedUntil");
         }
 
         public User PullUser(string username)
