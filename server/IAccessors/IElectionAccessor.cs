@@ -1,10 +1,10 @@
 namespace server.IAccessors
 {
-    public interface IAdminProfileAccessor
+    public interface IElectionAccessor
     {
         /*
         It's important to note that, unless specified otherwise, `id`
-        refers to the primary key AdminId from the AdminProfile table
+        refers to the primary key ElectionId from the Elections table
         in the database.
         */
 

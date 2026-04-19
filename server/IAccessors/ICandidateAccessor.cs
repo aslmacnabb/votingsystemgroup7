@@ -1,10 +1,10 @@
 namespace server.IAccessors
 {
-    public interface IAdminProfileAccessor
+    public interface ICandidateAccessor
     {
         /*
         It's important to note that, unless specified otherwise, `id`
-        refers to the primary key AdminId from the AdminProfile table
+        refers to the primary key CandidateId from the Candidates table
         in the database.
         */
 
@@ -22,11 +22,5 @@ namespace server.IAccessors
         Returns a string from the database based on specified parameters.
         */
         public string GetString(int id, string data);
-
-        /*
-        Returns a DateTime object from the database based on specified
-        parameters.
-        */
-        public DateTime GetDateTime(int id, string data);
     }
 }

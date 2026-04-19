@@ -3,6 +3,9 @@ using server.Accessors;
 // test UserAccessor
 UserAccessor ua = new UserAccessor();
 Console.WriteLine(ua.GetString(1, "Email")); // get email
+VoteAccessor va = new VoteAccessor();
+// get SelectionValue of Vote with id 1
+Console.WriteLine(va.GetString(1, "SelectionValue"));
 
 var builder = WebApplication.CreateBuilder(args);
 
