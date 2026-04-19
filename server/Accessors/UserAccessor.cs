@@ -40,24 +40,26 @@ namespace server.Accessors
 
         public string GetUserType(string username)
         {
-            string sql = "SELECT type FROM USER_ACCOUNT WHERE username = @username";
-            using (SqlCommand cmd = new SqlCommand(sql, GetConnection()))
+            SqlConnection conn = GetConnection();
+            string sql = "use VotingSystemDB; SELECT AccountType FROM UserAccount WHERE Username = @username;";
+            string type;
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
                 cmd.Parameters["@username"].Value = username;
-                // TODO: hash password
                 try
                 {
                     cmd.Connection.Open();
-                    string type = (string)cmd.ExecuteScalar();
-                    return type;
+                    type = (string)cmd.ExecuteScalar();
                 }
                 catch (SqlException sx)
                 {
-                    Console.WriteLine("User not found!");
-                    return "Invalid";
+                    Console.WriteLine(sx);
+                    type = "Error";
                 }
+                cmd.Connection.Close();
             }
+            return type;
         }
 
         public string GetUserEmail(string username)
@@ -72,13 +74,12 @@ namespace server.Accessors
                 try
                 {
                     cmd.Connection.Open();
-                    Console.WriteLine("Connection successful!");
                     email = (string)cmd.ExecuteScalar();
                 }
                 catch (SqlException sx)
                 {
                     Console.WriteLine(sx);
-                    email = "Function returned with error";
+                    email = "Error";
                 }
                 cmd.Connection.Close();
             }
