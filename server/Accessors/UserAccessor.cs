@@ -15,15 +15,15 @@ namespace server.Accessors
             return conn;
         }
 
-        public int GetInt(string username, string data)
+        public int GetInt(int id, string data)
         {
             SqlConnection conn = GetConnection();
-            string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE Username = @username;";
+            string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE UserId = @id;";
             int output;
             using (SqlCommand cmd = new SqlCommand(sql, conn))
             {
-                cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
-                cmd.Parameters["@username"].Value = username;
+                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
+                cmd.Parameters["@id"].Value = id;
                 try
                 {
                     cmd.Connection.Open();
@@ -39,15 +39,15 @@ namespace server.Accessors
             return output;
         }
 
-        public string GetString(string username, string data)
+        public string GetString(int id, string data)
         {
             SqlConnection conn = GetConnection();
-            string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE Username = @username;";
+            string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE UserId = @id;";
             string output;
             using (SqlCommand cmd = new SqlCommand(sql, conn))
             {
-                cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
-                cmd.Parameters["@username"].Value = username;
+                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
+                cmd.Parameters["@id"].Value = id;
                 try
                 {
                     cmd.Connection.Open();
@@ -63,15 +63,15 @@ namespace server.Accessors
             return output;
         }
 
-        public DateTime GetDateTime(string username, string data)
+        public DateTime GetDateTime(int id, string data)
         {
             SqlConnection conn = GetConnection();
-            string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE Username = @username;";
+            string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE UserId = @id;";
             DateTime output = new DateTime();
             using (SqlCommand cmd = new SqlCommand(sql, conn))
             {
-                cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
-                cmd.Parameters["@username"].Value = username;
+                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
+                cmd.Parameters["@id"].Value = id;
                 try
                 {
                     cmd.Connection.Open();
@@ -85,10 +85,34 @@ namespace server.Accessors
             }
             return output;
         }
+
+        public int GetIdFromUsername(string username)
+        {
+            SqlConnection conn = GetConnection();
+            string sql = "use VotingSystemDB; SELECT UserId FROM UserAccount WHERE Username = @username;";
+            int output;
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@id", System.Data.SqlDbType.NVarChar, 50);
+                cmd.Parameters[@username].Value = username;
+                try
+                {
+                    cmd.Connection.Open();
+                    output = (int)cmd.ExecuteScalar();
+                } catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                    output = -1;
+                }
+                cmd.Connection.Close();
+            }
+            return output;
+        }
         
         public bool Authenticate(string username, string password)
         {
-            string expectedPassword = GetPasswordHash(username);
+            int id = GetIdFromUsername(username);
+            string expectedPassword = GetPasswordHash(id);
             if (password == expectedPassword)
             {
                 return true;
@@ -98,24 +122,24 @@ namespace server.Accessors
             }
         }
 
-        public string GetPasswordHash(string username)
+        public string GetPasswordHash(int id)
         {
-            return GetString(username, "PasswordHash");
+            return GetString(id, "PasswordHash");
         }
 
-        public string GetEmail(string username)
+        public string GetEmail(int id)
         {
-            return GetString(username, "Email");
+            return GetString(id, "Email");
         }
 
-        public string GetAccountType(string username)
+        public string GetAccountType(int id)
         {
-            return GetString(username, "AccountType");
+            return GetString(id, "AccountType");
         }
 
-        public bool GetActiveStatus(string username)
+        public bool GetActiveStatus(int id)
         {
-            int IsActive = GetInt(username, "IsActive");
+            int IsActive = GetInt(id, "IsActive");
             if (IsActive == 1)
             {
                 return true;
@@ -125,24 +149,24 @@ namespace server.Accessors
             }
         }
 
-        public DateTime GetCreatedDate(string username)
+        public DateTime GetCreatedDate(int id)
         {
-            return GetDateTime(username, "CreatedDate");
+            return GetDateTime(id, "CreatedDate");
         }
 
-        public DateTime GetLastLoginDate(string username)
+        public DateTime GetLastLoginDate(int id)
         {
-            return GetDateTime(username, "LastLogin");
+            return GetDateTime(id, "LastLogin");
         }
 
-        public int GetFailedLoginAttempts(string username)
+        public int GetFailedLoginAttempts(int id)
         {
-            return GetInt(username, "FailedLoginAttempts");
+            return GetInt(id, "FailedLoginAttempts");
         }
 
-        public DateTime GetLockedUntil(string username)
+        public DateTime GetLockedUntil(int id)
         {
-            return GetDateTime(username, "LockedUntil");
+            return GetDateTime(id, "LockedUntil");
         }
 
         public User PullUser(string username)

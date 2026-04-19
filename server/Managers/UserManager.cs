@@ -16,7 +16,8 @@ namespace server.Managers
         {
             if (UserAccessor.Authenticate(username, password))
             {
-                return UserAccessor.GetAccountType(username);
+                int id = UserAccessor.GetIdFromUsername(username);
+                return UserAccessor.GetAccountType(id);
             }
             else
             {

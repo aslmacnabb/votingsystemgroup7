@@ -12,14 +12,23 @@ namespace server.IAccessors
         /*
         Returns an int from the database based on specified parameters.
         */
-        public int GetInt(string username, string data);
+        public int GetInt(int id, string data);
 
         /*
         Returns a string from the database based on specified parameters.
         */
-        public string GetString(string username, string data);
+        public string GetString(int id, string data);
 
-        public DateTime GetDateTime(string username, string data);
+        /*
+        Returns a UserId associated with `username` from the database.
+        */
+        public int GetIdFromUsername(string username);
+
+        /*
+        Returns a DateTime object from the database based on specified
+        parameters.
+        */
+        public DateTime GetDateTime(int id, string data);
 
         /*
         Returns true if the passed username and password are valid.
@@ -27,45 +36,45 @@ namespace server.IAccessors
         public bool Authenticate(string username, string password);
 
         /*
-        Returns the password hash associated with `username`.
+        Returns the password hash associated with `id`.
         */
-        public string GetPasswordHash(string username);
+        public string GetPasswordHash(int id);
         
         /*
-        Returns the email associated with `username`.
+        Returns the email associated with `id`.
         */
-        public string GetEmail(string username);
+        public string GetEmail(int id);
 
         /*
         Returns the user type (voter or admin).
         */
-        public string GetAccountType(string username);
+        public string GetAccountType(int id);
 
         /*
-        Returns whether User `username` is active or not.
+        Returns whether User `id` is active or not.
         */
-        public bool GetActiveStatus(string username);
+        public bool GetActiveStatus(int id);
 
         /*
-        Returns the creation date of User `username` as a string.
+        Returns the creation date of User `id`.
         */
-        public DateTime GetCreatedDate(string username);
+        public DateTime GetCreatedDate(int id);
 
         /*
-        Returns the time `username` last logged in as a string.
+        Returns the time `id` last logged in.
         */
-        public DateTime GetLastLoginDate(string username);
+        public DateTime GetLastLoginDate(int id);
 
         /*
         Returns the number of failed login attempts associated with
-        `username`.
+        `id`.
         */
-        public int GetFailedLoginAttempts(string username);
+        public int GetFailedLoginAttempts(int id);
 
         /*
-        Returns the time that `username` will be unlocked as a string.
+        Returns the time that `id` will be unlocked.
         */
-        public DateTime GetLockedUntil(string username);
+        public DateTime GetLockedUntil(int id);
 
         /*
         Returns a User object with all data fields supplied directly
