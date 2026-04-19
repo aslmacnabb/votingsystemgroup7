@@ -34,8 +34,8 @@ namespace server.Accessors
             int output;
             using (SqlCommand cmd = new SqlCommand(sql, conn))
             {
-                cmd.Parameters.Add("@id", System.Data.SqlDbType.NVarChar, 50);
-                cmd.Parameters[@username].Value = username;
+                cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
+                cmd.Parameters["@username"].Value = username;
                 try
                 {
                     cmd.Connection.Open();
@@ -48,19 +48,6 @@ namespace server.Accessors
                 cmd.Connection.Close();
             }
             return output;
-        }
-        
-        public bool Authenticate(string username, string password)
-        {
-            int id = GetIdFromUsername(username);
-            string expectedPassword = GetString(id, "PasswordHash");
-            if (password == expectedPassword)
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
         }
 
         public User PullUser(string username)

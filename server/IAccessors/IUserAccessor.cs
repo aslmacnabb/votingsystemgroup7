@@ -6,7 +6,7 @@ namespace server.IAccessors
         Returns an SQL query for use by a Getter.
         */
         public string GetSqlString(string data);
-        
+
         /*
         Returns an int from the database based on specified parameters.
         */
@@ -27,11 +27,6 @@ namespace server.IAccessors
         Returns a UserId associated with `username` from the database.
         */
         public int GetIdFromUsername(string username);
-
-        /*
-        Returns true if the passed username and password are valid.
-        */
-        public bool Authenticate(string username, string password);
 
         /*
         Returns a User object with all data fields supplied directly

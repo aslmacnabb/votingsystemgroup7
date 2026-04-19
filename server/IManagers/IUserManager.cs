@@ -2,9 +2,9 @@ namespace server.IManagers
 {
     public interface IUserManager
     {
-        /**
-        * Authenticates the User and returns its type (voter or admin).
+        /*
+        Returns true if the passed username and password are valid.
         */
-        public string GetUserType(string username, string password);
+        public bool Authenticate(string username, string password);
     }
 }

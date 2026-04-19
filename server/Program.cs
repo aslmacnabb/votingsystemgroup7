@@ -1,8 +1,9 @@
 using server.Accessors;
+using server.Managers;
 
-// test UserAccessor
-UserAccessor ua = new UserAccessor();
-Console.WriteLine(ua.GetString(1, "Email")); // get email
+// test UserManager
+UserManager um = new UserManager(new UserAccessor());
+Console.WriteLine(um.Authenticate("HuskersAdmin", "AE4F2B96EF123FF6D8DD1C74FA7E77F8E2837F30F9E8FBFBC3B6A9EF4B5C6D7E8"));
 VoteAccessor va = new VoteAccessor();
 // get SelectionValue of Vote with id 1
 Console.WriteLine(va.GetString(1, "SelectionValue"));

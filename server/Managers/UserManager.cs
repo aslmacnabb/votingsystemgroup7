@@ -12,16 +12,16 @@ namespace server.Managers
             UserAccessor = userAccessor;
         }
 
-        public string GetUserType(string username, string password)
+        public bool Authenticate(string username, string password)
         {
-            if (UserAccessor.Authenticate(username, password))
+            int id = UserAccessor.GetIdFromUsername(username);
+            string expectedPassword = UserAccessor.GetString(id, "PasswordHash");
+            if (password == expectedPassword)
             {
-                int id = UserAccessor.GetIdFromUsername(username);
-                return UserAccessor.GetString(id, "AccountType");
-            }
-            else
+                return true;
+            } else
             {
-                return "Invalid user";
+                return false;
             }
         }
     }
