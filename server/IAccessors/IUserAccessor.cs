@@ -5,11 +5,6 @@ namespace server.IAccessors
     public interface IUserAccessor
     {
         /*
-        Returns a valid SqlConnection object with admin privileges
-        */
-        public SqlConnection GetConnection();
-
-        /*
         Returns an int from the database based on specified parameters.
         */
         public int GetInt(int id, string data);

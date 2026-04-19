@@ -5,90 +5,27 @@ namespace server.Accessors
 {
     public class UserAccessor : IUserAccessor
     {
-        public SqlConnection GetConnection()
-        {
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = "Data Source = 192.168.122.252;" +
-            "Initial Catalog=TestDB;" +
-            "User id=sa;" +
-            "Password=Charter9 Untapped Carnivore;";
-            return conn;
-        }
-
         public int GetInt(int id, string data)
         {
-            SqlConnection conn = GetConnection();
             string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE UserId = @id;";
-            int output;
-            using (SqlCommand cmd = new SqlCommand(sql, conn))
-            {
-                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
-                cmd.Parameters["@id"].Value = id;
-                try
-                {
-                    cmd.Connection.Open();
-                    output = (int)cmd.ExecuteScalar();
-                }
-                catch (SqlException sx)
-                {
-                    Console.WriteLine(sx);
-                    output = -1;
-                }
-                cmd.Connection.Close();
-            }
-            return output;
+            return GenericAccessor.GetInt(id, sql);
         }
 
         public string GetString(int id, string data)
         {
-            SqlConnection conn = GetConnection();
             string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE UserId = @id;";
-            string output;
-            using (SqlCommand cmd = new SqlCommand(sql, conn))
-            {
-                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
-                cmd.Parameters["@id"].Value = id;
-                try
-                {
-                    cmd.Connection.Open();
-                    output = (string)cmd.ExecuteScalar();
-                }
-                catch (SqlException sx)
-                {
-                    Console.WriteLine(sx);
-                    output = "Error";
-                }
-                cmd.Connection.Close();
-            }
-            return output;
+            return GenericAccessor.GetString(id, sql);
         }
 
         public DateTime GetDateTime(int id, string data)
         {
-            SqlConnection conn = GetConnection();
             string sql = "use VotingSystemDB; SELECT " + data + " FROM UserAccount WHERE UserId = @id;";
-            DateTime output = new DateTime();
-            using (SqlCommand cmd = new SqlCommand(sql, conn))
-            {
-                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
-                cmd.Parameters["@id"].Value = id;
-                try
-                {
-                    cmd.Connection.Open();
-                    output = (DateTime)cmd.ExecuteScalar();
-                }
-                catch (SqlException sx)
-                {
-                    Console.WriteLine(sx);
-                }
-                cmd.Connection.Close();
-            }
-            return output;
+            return GenericAccessor.GetDateTime(id, sql);
         }
 
         public int GetIdFromUsername(string username)
         {
-            SqlConnection conn = GetConnection();
+            SqlConnection conn = GenericAccessor.GetConnection();
             string sql = "use VotingSystemDB; SELECT UserId FROM UserAccount WHERE Username = @username;";
             int output;
             using (SqlCommand cmd = new SqlCommand(sql, conn))
