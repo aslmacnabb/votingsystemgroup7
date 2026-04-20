@@ -8,7 +8,7 @@ namespace server.Accessors
         public static SqlConnection GetConnection()
         {
             SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = "Data Source = 192.168.122.252;" +
+            conn.ConnectionString = "Data Source = localhost;" +
             "Initial Catalog=TestDB;" +
             "User id=sa;" +
             "Password=Charter9 Untapped Carnivore;";
