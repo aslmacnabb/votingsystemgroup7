@@ -1,51 +1,56 @@
 import { useState } from "react";
-import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import "../styles/Login.css";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-
-  
-  navigate("/ballot");
-};
+  const { login } = useAuth();
   const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const role = login(username, password);
+
+    if (role === "admin") navigate("/admin");
+    else if (role === "user") navigate("/hub");
+    else alert("Invalid login");
+  };
 
   return (
     <div className="login-container">
-        
-      <div className="login-image">
-        <img src="/login-image.jpg" alt="Voting" />
-      </div>
+      <div className="login-split">
+        <div className="login-image-panel" />
 
+        <div className="login-form-panel">
+          <div className="login-card">
+            <h1 className="login-title">Login</h1>
+            <form onSubmit={handleSubmit} className="login-form">
+              <label>
+                Username
+                <input
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </label>
 
-      <div className="login-form">
-        <div className="login-card">
-          <h1 className="login-title">Voting System</h1>
-          <p className="login-subtitle">Welcome!</p>
+              <label>
+                Password
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </label>
 
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-
-            <button type="submit">Login</button>
-          </form>
+              <button type="submit">Login</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,35 @@
+.ballot-container {
+  display: flex;
+  justify-content: center;
+}
+
+.ballot-card {
+  background: #F1E6D2;
+  color: #210706;
+  padding: 30px;
+  border-radius: 12px;
+  width: 500px;
+}
+
+.ballot-title {
+  margin-bottom: 20px;
+}
+
+.ballot-option {
+  padding: 10px;
+  border: 1px solid #5E657B;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.ballot-option.selected {
+  background: #5E657B;
+  color: #F1E6D2;
+}
+
+.ballot-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
