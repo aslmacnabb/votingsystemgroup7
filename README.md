@@ -51,14 +51,14 @@ chmod +x install.sh
 4. To run the server component:
 
 ```bash
-cd server
+cd ~/votingsystemgroup7/server
 dotnet run
 ```
 
 5. To run the client component:
 
 ```bash
-cd client
+cd ~/votingsystemgroup7/client
 npm run dev
 ```
 
