@@ -48,9 +48,6 @@ chmod +x install.sh
 ./install.sh
 ```
 
-Note that during the MS SQL Server setup process, you will need to set the SQL 
-server admin password to `Charter9 Untapped Carnivore`.
-
 4. To run the server component:
 
 ```bash
