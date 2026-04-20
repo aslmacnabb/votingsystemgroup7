@@ -1,0 +1,16 @@
+.scroll-wheel {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 20px;
+}
+
+.wheel-item {
+  padding: 12px;
+  border-bottom: 1px solid #5E657B;
+  cursor: pointer;
+}
+
+.wheel-item:hover {
+  background: #5E657B;
+  color: #F1E6D2;
+}

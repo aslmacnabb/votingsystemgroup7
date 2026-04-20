@@ -1,0 +1,32 @@
+.history-container {
+  display: flex;
+  justify-content: center;
+}
+
+.ballot-scroll-container {
+  max-height: 400px;
+  overflow-y: auto;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.ballot-details {
+  margin-bottom: 15px;
+  padding: 15px;
+  background: #F1E6D2;
+  color: #210706;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.ballot-details h3 {
+  margin-top: 0;
+  color: #210706;
+}
+
+.ballot-details p {
+  margin: 5px 0;
+}

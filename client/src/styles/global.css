@@ -1,0 +1,42 @@
+body {
+  background: #210706;
+  color: #F1E6D2;
+  font-family: sans-serif;
+}
+
+h1 {
+  color: #891D1A;
+}
+
+.app-card {
+  background: #F1E6D2;
+  color: #210706;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  margin: 50px auto;
+}
+
+button {
+  background: #891D1A;
+  color: #F1E6D2;
+  padding: 10px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #5E657B;
+}
+
+.scroll-wheel {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.wheel-item {
+  padding: 10px;
+  border-bottom: 1px solid #5E657B;
+  cursor: pointer;
+}
