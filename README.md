@@ -14,13 +14,21 @@ is included as a tested environment.
 Windows users should use WSL to run an Ubuntu VM on their device. Afterwards, they
 should follow the Linux steps.
 
-To install Ubuntu through WSL, open a terminal window and run:
+To install WSL, open a terminal window and run:
 
 ```
-wsl --install  Ubuntu-24.04
+wsl --install
 ```
 
-Once the setup process is complete, you can search for Ubuntu in your start menu.
+You'll then need to reboot your computer. After the reboot, you can install Ubuntu
+on top of WSL with this command:
+
+```
+wsl --install Ubuntu-24.04
+```
+
+Follow the prompt to set a username and password, and it should drop you into an Ubuntu
+session. To reenter Ubuntu from a standard Windows command line, simply run `wsl`.
 
 ### Linux
 
@@ -36,6 +44,11 @@ Please reboot your system if there were any package updates.
 To run the script,
 
 1. Download `install.sh`.
+
+```bash
+wget https://raw.githubusercontent.com/aslmacnabb/votingsystemgroup7/refs/heads/main/install.sh
+```
+
 2. Mark the script as executable:
 
 ```bash
