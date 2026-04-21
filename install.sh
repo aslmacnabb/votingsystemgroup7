@@ -17,14 +17,14 @@ sudo docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Charter9 Untapped Carni
 
 # NPM install instructions taken from https://nodesource.com/products/distributions
 echo "Installing node.js, npm, and vite"
-cd ~/votingsystemgroup7/client
+cd votingsystemgroup7/client
 curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
 sudo apt install -y nodejs
 npm install -D vite
 
 
 echo "Configuring SQL server"
-cd ~/votingsystemgroup7
+cd ..
 /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P 'Charter9 Untapped Carnivore' -No -i sql/VotingSystemDatabaseCreation.sql
 /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P 'Charter9 Untapped Carnivore' -No -i sql/VotingSystemTestData.sql
 
