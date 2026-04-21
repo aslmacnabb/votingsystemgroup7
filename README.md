@@ -29,6 +29,7 @@ wsl --install Ubuntu-24.04
 
 Follow the prompt to set a username and password, and it should drop you into an Ubuntu
 session. To reenter Ubuntu from a standard Windows command line, simply run `wsl`.
+Now, to install the program, follow the steps below while in your Ubuntu environment.
 
 ### Linux
 
