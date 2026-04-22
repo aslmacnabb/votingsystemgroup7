@@ -89,6 +89,7 @@ IAccessors/
  IUserAccessor.cs
  IVoteAccessor.cs
  IVoterProfileAccessor.cs
+IControllers/IAuthController.cs
 IManagers/IUserManager.cs
 Managers/UserManager.cs
 Models/
