@@ -52,7 +52,8 @@ namespace server.Accessors
                 {
                     cmd.Connection.Open();
                     output = (int)cmd.ExecuteScalar();
-                } catch (SqlException sx)
+                }
+                catch (SqlException sx)
                 {
                     Console.WriteLine(sx);
                     output = -1;
