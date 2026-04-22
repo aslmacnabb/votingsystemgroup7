@@ -11,7 +11,7 @@ namespace server.IAccessors
         /*
         Returns an SQL query for use by a Getter.
         */
-        public string GetSqlString(string data);
+        public string GetGetterSqlString(string data);
 
         /*
         Returns an int from the database based on specified parameters.
