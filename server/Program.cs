@@ -7,6 +7,9 @@ Console.WriteLine(um.Authenticate("HuskersAdmin", "AE4F2B96EF123FF6D8DD1C74FA7E7
 VoteAccessor va = new VoteAccessor();
 // get SelectionValue of Vote with id 1
 Console.WriteLine(va.GetString(1, "SelectionValue"));
+UserAccessor ua = new UserAccessor();
+ua.SetInt(1, "FailedLoginAttempts", 5);
+Console.WriteLine(ua.GetInt(1, "FailedLoginAttempts"));
 
 var builder = WebApplication.CreateBuilder(args);
 

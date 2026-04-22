@@ -24,5 +24,10 @@ namespace server.IAccessors
         parameters.
         */
         public abstract static DateTime GetDateTime(int id, string sql);
+
+        /*
+        Sets an int belonging to `id` to `new_value` on field `data`
+        */
+        public abstract static void SetInt(int id, string sql, int new_value);
     }
 }

@@ -82,5 +82,28 @@ namespace server.Accessors
             }
             return output;
         }
+
+        public static void SetInt(int id, string sql, int new_value)
+        {
+            SqlConnection conn = GetConnection();
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@new_value", System.Data.SqlDbType.Int);
+                cmd.Parameters["@new_value"].Value = new_value;
+                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
+                cmd.Parameters["@id"].Value = id;
+                Console.WriteLine(sql);
+                try
+                {
+                    cmd.Connection.Open();
+                    cmd.ExecuteScalar();
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                }
+                cmd.Connection.Close();
+            }
+        }
     }
 }
