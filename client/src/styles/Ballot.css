@@ -8,7 +8,22 @@
   color: #210706;
   padding: 30px;
   border-radius: 12px;
-  width: 500px;
+  border: 2px solid var(--accent-color);
+  width: 700px;
+  position: relative;
+}
+
+.ballot-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent-color);
+  border-radius: 12px;
+  z-index: -1;
+  transform: translate(-10px, -10px);
 }
 
 .ballot-title {
@@ -17,14 +32,14 @@
 
 .ballot-option {
   padding: 10px;
-  border: 1px solid #5E657B;
+  border: 1px solid var(--accent-color);
   border-radius: 6px;
   margin-bottom: 10px;
   cursor: pointer;
 }
 
 .ballot-option.selected {
-  background: #5E657B;
+  background: var(--accent-color);
   color: #F1E6D2;
 }
 

@@ -2,15 +2,18 @@
   max-height: 300px;
   overflow-y: auto;
   margin-top: 20px;
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  padding: 10px;
 }
 
 .wheel-item {
   padding: 12px;
-  border-bottom: 1px solid #5E657B;
+  border-bottom: 1px solid var(--accent-color);
   cursor: pointer;
 }
 
 .wheel-item:hover {
-  background: #5E657B;
+  background: var(--accent-color);
   color: #F1E6D2;
 }
