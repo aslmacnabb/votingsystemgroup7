@@ -5,7 +5,12 @@ namespace server.IAccessors
         /*
         Returns an SQL query for use by a Getter.
         */
-        public string GetSqlString(string data);
+        public string GetGetterSqlString(string data);
+
+        /*
+        Returns an SQL query for use by a Setter.
+        */
+        public string GetSetterSqlString(string data);
 
         /*
         Returns an int from the database based on specified parameters.
@@ -22,6 +27,11 @@ namespace server.IAccessors
         parameters.
         */
         public DateTime GetDateTime(int id, string data);
+
+        /*
+        Sets an int belonging to `id` to `new_value` on field `data`
+        */
+        public void SetInt(int id, string data, int new_value);
 
         /*
         Returns a UserId associated with `username` from the database.
