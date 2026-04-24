@@ -92,7 +92,50 @@ namespace server.Accessors
                 cmd.Parameters["@new_value"].Value = new_value;
                 cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
                 cmd.Parameters["@id"].Value = id;
-                Console.WriteLine(sql);
+                try
+                {
+                    cmd.Connection.Open();
+                    cmd.ExecuteScalar();
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                }
+                cmd.Connection.Close();
+            }
+        }
+
+        public static void SetString(int id, string sql, string new_value)
+        {
+            SqlConnection conn = GetConnection();
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@new_value", System.Data.SqlDbType.NVarChar, 2000);
+                cmd.Parameters["@new_value"].Value = new_value;
+                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
+                cmd.Parameters["@id"].Value = id;
+                try
+                {
+                    cmd.Connection.Open();
+                    cmd.ExecuteScalar();
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                }
+                cmd.Connection.Close();
+            }
+        }
+
+        public static void SetDateTime(int id, string sql, DateTime new_value)
+        {
+            SqlConnection conn = GetConnection();
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@new_value", System.Data.SqlDbType.DateTime2);
+                cmd.Parameters["@new_value"].Value = new_value;
+                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
+                cmd.Parameters["@id"].Value = id;
                 try
                 {
                     cmd.Connection.Open();
