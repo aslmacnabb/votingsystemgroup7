@@ -39,6 +39,18 @@ namespace server.Accessors
             GenericAccessor.SetInt(id, sql, new_value);
         }
 
+        public void SetString(int id, string data, string new_value)
+        {
+            string sql = GetSetterSqlString(data);
+            GenericAccessor.SetString(id, sql, new_value);
+        }
+
+        public void SetDateTime(int id, string data, DateTime new_value)
+        {
+            string sql = GetSetterSqlString(data);
+            GenericAccessor.SetDateTime(id, sql, new_value);
+        }
+
         public int GetIdFromUsername(string username)
         {
             SqlConnection conn = GenericAccessor.GetConnection();

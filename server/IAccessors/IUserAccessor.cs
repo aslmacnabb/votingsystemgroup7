@@ -34,7 +34,17 @@ namespace server.IAccessors
         public void SetInt(int id, string data, int new_value);
 
         /*
-        Returns a UserId associated with `username` from the database.
+        Sets a string belonging to `id` to `new_value` on field `data.
+        */
+        public void SetString(int id, string sql, string new_value);
+
+        /*
+        Sets a DateTime object belonging to `id` to `new_value` on field `data`.
+        */
+        public void SetDateTime(int id, string sql, DateTime new_value);
+
+        /*
+        Returns a UserId associated with `username` fr*om the database.
         */
         public int GetIdFromUsername(string username);
 

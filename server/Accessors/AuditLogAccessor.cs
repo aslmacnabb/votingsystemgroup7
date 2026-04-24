@@ -8,6 +8,12 @@ namespace server.Accessors
         {
             return "use VotingSystemDB; SELECT " + data + " FROM AuditLog WHERE AuditId = @id;";
         }
+
+        public string GetSetterSqlString(string data)
+        {
+            return "use VotingSystemDB; UPDATE AuditLog SET " + data + " = @new_value WHERE AuditId = @id;";
+        }
+
         public int GetInt(int id, string data)
         {
             string sql = GetGetterSqlString(data);
@@ -24,6 +30,24 @@ namespace server.Accessors
         {
             string sql = GetGetterSqlString(data);
             return GenericAccessor.GetDateTime(id, sql);
+        }
+
+        public void SetInt(int id, string data, int new_value)
+        {
+            string sql = GetSetterSqlString(data);
+            GenericAccessor.SetInt(id, sql, new_value);
+        }
+
+        public void SetString(int id, string data, string new_value)
+        {
+            string sql = GetSetterSqlString(data);
+            GenericAccessor.SetString(id, sql, new_value);
+        }
+
+        public void SetDateTime(int id, string data, DateTime new_value)
+        {
+            string sql = GetSetterSqlString(data);
+            GenericAccessor.SetDateTime(id, sql, new_value);
         }
     }
 }
