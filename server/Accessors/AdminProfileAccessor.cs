@@ -32,6 +32,12 @@ namespace server.Accessors
             return GenericAccessor.GetDateTime(id, sql);
         }
 
+        public int GetAdminIdFromUserId(int userid)
+        {
+            string sql = "use VotingSystemDB; SELECT AdminId FROM AdminProfile WHERE UserId = @id;";
+            return GenericAccessor.GetInt(userid, sql);
+        }
+
         public void SetInt(int id, string data, int new_value)
         {
             string sql = GetSetterSqlString(data);

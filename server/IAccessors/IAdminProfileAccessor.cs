@@ -35,6 +35,11 @@ namespace server.IAccessors
         public DateTime GetDateTime(int id, string data);
 
         /*
+        Returns the AdminId based on the given UserId
+        */
+        public int GetAdminIdFromUserId(int userid);
+
+        /*
         Sets an int belonging to `id` to `new_value` on field `data`
         */
         public void SetInt(int id, string data, int new_value);
@@ -48,5 +53,10 @@ namespace server.IAccessors
         Sets a DateTime object belonging to `id` to `new_value` on field `data`.
         */
         public void SetDateTime(int id, string sql, DateTime new_value);
+
+        /*
+        Adds a ballot named `title` to the database.
+        */
+        // public void AddBallot(string title);
     }
 }
