@@ -55,5 +55,11 @@ namespace server.Accessors
             string sql = GetSetterSqlString(data);
             GenericAccessor.SetDateTime(id, sql, new_value);
         }
+
+        public void AddElection(int id, string title)
+        {
+            string sql = "use VotingSystemDB; insert into Elections (AdminId, ElectionName, StartDate, EndDate, IsPublished) values (@id, @new_value, '2026-04-09 08:00:00', '2026-04-30 20:00:00', 1);";
+            GenericAccessor.SetString(id, sql, title);
+        }
     }
 }

@@ -55,8 +55,10 @@ namespace server.IAccessors
         public void SetDateTime(int id, string sql, DateTime new_value);
 
         /*
-        Adds a ballot named `title` to the database.
+        Adds an election named `title` to the database. Note: id refers to
+        AdminId, so you will likely need to call GetAdminIdFromUserId when
+        calling this function.
         */
-        // public void AddBallot(string title);
+        public void AddElection(int id, string title);
     }
 }
