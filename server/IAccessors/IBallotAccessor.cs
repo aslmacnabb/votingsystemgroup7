@@ -1,3 +1,5 @@
+using System;
+
 namespace server.IAccessors
 {
     public interface IBallotAccessor
@@ -33,6 +35,39 @@ namespace server.IAccessors
         parameters.
         */
         public DateTime GetDateTime(int id, string data);
+
+        /*
+        Returns the ballot cast date from Ballots.CastAt, or null when it
+        has not been cast yet
+        */
+        public DateTime? GetBallotDate(int ballotId);
+
+        /*
+        Sets the ballot cast date in Ballots.CastAt for the specified ballot
+        This is the date/time the voter actually submitted the ballot
+        */
+        public void SetBallotDate(int ballotId, DateTime date);
+
+        /*
+        Returns the voting session start time for this ballot.
+        Ballot level start/end dates are easier to control than election level dates.
+        */
+        public DateTime? GetBallotStartDate(int ballotId);
+
+        /*
+        Sets the ballot voting session start time for the specified ballot
+        */
+        public void SetBallotStartDate(int ballotId, DateTime date);
+
+        /*
+        Returns the voting session end time for this ballot
+        */
+        public DateTime? GetBallotEndDate(int ballotId);
+
+        /*
+        Sets the ballot voting session end time for the specified ballot
+        */
+        public void SetBallotEndDate(int ballotId, DateTime date);
 
         /*
         Sets an int belonging to `id` to `new_value` on field `data`

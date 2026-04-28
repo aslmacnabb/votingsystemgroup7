@@ -1,4 +1,7 @@
 using server.IAccessors;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace server.Accessors
 {
@@ -44,10 +47,38 @@ namespace server.Accessors
             GenericAccessor.SetString(id, sql, new_value);
         }
 
+        // Updates a DateTime field for the specified election.
         public void SetDateTime(int id, string data, DateTime new_value)
         {
             string sql = GetSetterSqlString(data);
             GenericAccessor.SetDateTime(id, sql, new_value);
+        }
+
+        // Returns the names of published elections as the available ballot names.
+        public List<string> GetAvailableBallotNames()
+        {
+            List<string> ballotNames = new List<string>();
+            string sql = "use VotingSystemDB; SELECT ElectionName FROM Elections WHERE IsPublished = 1;";
+            using (SqlConnection conn = GenericAccessor.GetConnection())
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                try
+                {
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ballotNames.Add(reader.GetString(0));
+                        }
+                    }
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                }
+            }
+            return ballotNames;
         }
     }
 }

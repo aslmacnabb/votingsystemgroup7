@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace server.IAccessors
 {
     public interface IElectionAccessor
@@ -48,5 +51,11 @@ namespace server.IAccessors
         Sets a DateTime object belonging to `id` to `new_value` on field `data`.
         */
         public void SetDateTime(int id, string sql, DateTime new_value);
+
+        /*
+        Returns a list of names of available (published) ballots
+        */
+        public List<string> GetAvailableBallotNames();
     }
 }
+

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace server.IAccessors
 {
     public interface IMeasureAccessor
@@ -37,5 +40,25 @@ namespace server.IAccessors
         Sets a string belonging to `id` to `new_value` on field `data.
         */
         public void SetString(int id, string sql, string new_value);
+
+        /*
+        Returns all measures assigned to a given election
+        */
+        public List<Dictionary<string, object>> GetMeasuresForElection(int electionId);
+
+        /*
+        Inserts a new measure for the given election
+        */
+        public void InsertMeasure(int electionId, string title, string text, string yesDesc, string noDesc);
+
+        /*
+        Returns all measures visible on a ballot
+        */
+        public List<Dictionary<string, object>> GetMeasuresForBallot(int ballotId);
+
+        /*
+        Inserts a new measure for the election attached to the ballot
+        */
+        public void InsertMeasureForBallot(int ballotId, string title, string text, string yesDesc, string noDesc);
     }
 }

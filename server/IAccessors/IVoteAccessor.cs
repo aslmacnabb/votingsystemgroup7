@@ -1,3 +1,5 @@
+using System;
+
 namespace server.IAccessors
 {
     public interface IVoteAccessor
@@ -48,5 +50,10 @@ namespace server.IAccessors
         Sets a DateTime object belonging to `id` to `new_value` on field `data`.
         */
         public void SetDateTime(int id, string sql, DateTime new_value);
+
+        /*
+        Inserts a ballot vote for a measure.
+        */
+        public void InsertMeasureVote(int ballotId, int measureId, string selection);
     }
 }
