@@ -90,8 +90,12 @@ IAccessors/
  IVoteAccessor.cs
  IVoterProfileAccessor.cs
 IControllers/IAuthController.cs
-IManagers/IUserManager.cs
-Managers/UserManager.cs
+IManagers/
+ IAdminManager.cs
+ IUserManager.cs
+Managers/
+ AdminManager.cs
+ UserManager.cs
 Models/
  Admin.cs
  Election.cs
