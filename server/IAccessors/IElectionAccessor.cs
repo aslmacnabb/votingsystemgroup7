@@ -48,5 +48,10 @@ namespace server.IAccessors
         Sets a DateTime object belonging to `id` to `new_value` on field `data`.
         */
         public void SetDateTime(int id, string sql, DateTime new_value);
+
+        /*
+        Returns an ElectionId associated with the passed election name
+        */
+        public int GetElectionIdFromElectionName(string name);
     }
 }

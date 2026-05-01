@@ -63,5 +63,10 @@ namespace server.IAccessors
         Sets the submission date of `id` to `new_value`.
         */
         public void SetBallotDate(int id, DateTime new_value);
+
+        /*
+        Returns a ballotid from an electionid and voterid.
+        */
+        public int GetBallotId(int electionid, int voterid);
     }
 }

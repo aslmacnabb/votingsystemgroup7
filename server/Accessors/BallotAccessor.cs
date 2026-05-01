@@ -1,4 +1,5 @@
 using server.IAccessors;
+using System.Data.SqlClient;
 
 namespace server.Accessors
 {
@@ -66,6 +67,32 @@ namespace server.Accessors
         {
             string sql = "use VotingSystemDB; UPDATE Ballots SET CastAt = @new_value WHERE BallotId = @id;";
             GenericAccessor.SetDateTime(id, sql, new_value);
+        }
+
+        public int GetBallotId(int electionid, int voterid)
+        {
+            SqlConnection conn = GenericAccessor.GetConnection();
+            string sql = "use VotingSystemDB; SELECT BallotId FROM Ballots WHERE VoterId = @voterid AND ElectionId = @electionid;";
+            int output;
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@voterid", System.Data.SqlDbType.Int);
+                cmd.Parameters["@voterid"].Value = voterid;
+                cmd.Parameters.Add("@electionid", System.Data.SqlDbType.Int);
+                cmd.Parameters["@electionid"].Value = electionid;
+                try
+                {
+                    cmd.Connection.Open();
+                    output = (int)cmd.ExecuteScalar();
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                    output = -1;
+                }
+                cmd.Connection.Close();
+            }
+            return output;
         }
     }
 }

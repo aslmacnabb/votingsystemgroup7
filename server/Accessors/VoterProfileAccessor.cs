@@ -49,5 +49,11 @@ namespace server.Accessors
             string sql = GetSetterSqlString(data);
             GenericAccessor.SetDateTime(id, sql, new_value);
         }
+
+        public int GetVoterIdFromUserId(int userid)
+        {
+            string sql = "use VotingSystemDB; SELECT VoterId FROM VoterProfile WHERE UserId = @id;";
+            return GenericAccessor.GetInt(userid, sql);
+        }
     }
 }
