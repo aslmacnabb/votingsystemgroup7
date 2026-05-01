@@ -48,5 +48,20 @@ namespace server.IAccessors
         Sets a DateTime object belonging to `id` to `new_value` on field `data`.
         */
         public void SetDateTime(int id, string sql, DateTime new_value);
+
+        /*
+        Sets the measure decision for `id` to 'new_value'.
+        */
+        public void SetMeasureDecision(int id, string new_value);
+
+        /*
+        Gets the submission date associated with `id`.
+        */
+        public DateTime GetBallotDate(int id);
+
+        /*
+        Sets the submission date of `id` to `new_value`.
+        */
+        public void SetBallotDate(int id, DateTime new_value);
     }
 }
