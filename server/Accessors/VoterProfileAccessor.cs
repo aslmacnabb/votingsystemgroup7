@@ -52,19 +52,19 @@ namespace server.Accessors
 
         public void SetMeasureDecision(int ballotId, string new_value)
         {
-            string sql = "use VotingSystemDB; UPDATE Ballots SET SubmissionStatus = @new_value WHERE BallotId = @ballotId;";
+            string sql = "use VotingSystemDB; UPDATE Ballots SET SubmissionStatus = @new_value WHERE BallotId = @id;";
             GenericAccessor.SetString(ballotId, sql, new_value);
         }
 
         public DateTime GetBallotDate(int ballotId)
         {
-            string sql = "use VotingSystemDB; SELECT CastAt FROM Ballots WHERE BallotId = @ballotId;";
+            string sql = "use VotingSystemDB; SELECT CastAt FROM Ballots WHERE BallotId = @id;";
             return GenericAccessor.GetDateTime(ballotId, sql);
         }
 
         public void SetBallotDate(int ballotId, DateTime new_value)
         {
-            string sql = "use VotingSystemDB; UPDATE Ballots SET CastAt = @new_value WHERE BallotId = @ballotId;";
+            string sql = "use VotingSystemDB; UPDATE Ballots SET CastAt = @new_value WHERE BallotId = @id;";
             GenericAccessor.SetDateTime(ballotId, sql, new_value);
         }
     }
