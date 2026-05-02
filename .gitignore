@@ -2,3 +2,4 @@
 server/bin/
 server/obj/
 tests/*/obj
+tests/*/bin
