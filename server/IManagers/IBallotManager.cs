@@ -26,7 +26,13 @@ namespace server.IAccessors
 
         /*
         Gets a list of all measures associated with `election_name`.
-         */
+        */
         public List<string> GetMeasuresFromElection(string election_name);
+
+        /*
+        Returns a list of the names of all elections currently in the database.
+        Does not require authentication. Election names are considered public information.
+        */
+        public List<string> GetAllElectionNames();
     }
 }

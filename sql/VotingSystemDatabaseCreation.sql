@@ -18,7 +18,7 @@ go
 create table UserAccount (
     UserId int identity(1,1) primary key,
     Username nvarchar(50) not null unique,
-    PasswordHash nvarchar(256) not null,
+    UserPassword nvarchar(256) not null,
     Email nvarchar(100) not null unique,
     AccountType nvarchar(10) not null default 'voter',
     IsActive bit not null default 1,
@@ -63,6 +63,18 @@ create table AdminProfile (
     IsActive bit not null default 1
 );
 
+create table Ballots (
+    BallotId int identity(1,1) primary key,
+    VoterId int not null foreign key references VoterProfile(VoterId),
+    ElectionId int not null,
+    SubmissionStatus nvarchar(20) not null default 'draft',
+    StartDate datetime2 null,
+    EndDate datetime2 null,
+    CastAt datetime2 null,
+    CreatedAt datetime2 not null default getdate(),
+    SessionToken nvarchar(256) not null unique
+);
+
 -- layer 3: election structure layer
 create table Elections (
     ElectionId int identity(1,1) primary key,
@@ -75,6 +87,9 @@ create table Elections (
     CreatedDate datetime2 not null default getdate(),
     LastModified datetime2 not null default getdate()
 );
+
+alter table Ballots
+    add constraint FK_Ballots_Elections foreign key (ElectionId) references Elections(ElectionId);
 
 create table Offices (
     OfficeId int identity(1,1) primary key,
@@ -106,18 +121,6 @@ create table Measures (
 );
 
 -- layer 4: voting layer
-create table Ballots (
-    BallotId int identity(1,1) primary key,
-    VoterId int not null foreign key references VoterProfile(VoterId),
-    ElectionId int not null foreign key references Elections(ElectionId),
-    SubmissionStatus nvarchar(20) not null default 'draft',
-    CastAt datetime2 null,
-    CreatedAt datetime2 not null default getdate(),
-    SessionToken nvarchar(256) not null unique
-);
-
-create unique index uq_BallotVoterElection on Ballots(VoterId, ElectionId);
-
 create table Votes (
     VoteId int identity(1,1) primary key,
     BallotId int not null foreign key references Ballots(BallotId) on delete cascade,

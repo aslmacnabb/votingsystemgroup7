@@ -93,5 +93,15 @@ namespace server.Managers
             int electionid = ea.GetElectionIdFromElectionName(election_name);
             return ba.GetMeasuresFromElection(electionid);
         }
+
+        /*
+        Delegates to the election accessor to retrieve all election names.
+        No authentication required. election names are publicly visible to voters.
+        */
+        public List<string> GetAllElectionNames()
+        {
+            /* Delegate directly to the election accessor.  no user context needed */
+            return ea.GetAllElectionNames();
+        }
     }
 }

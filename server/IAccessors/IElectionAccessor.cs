@@ -53,5 +53,10 @@ namespace server.IAccessors
         Returns an ElectionId associated with the passed election name
         */
         public int GetElectionIdFromElectionName(string name);
+
+        /*
+        Returns a list of all election names from the Elections table.
+        */
+        public List<string> GetAllElectionNames();
     }
 }

@@ -74,5 +74,42 @@ namespace server.Accessors
             }
             return output;
         }
+
+        /*
+        Queries the Elections table and returns every ElectionName as a
+        list of strings. No filtering is applied. all elections are
+        returned regardless of publish status.
+        */
+        public List<string> GetAllElectionNames()
+        {
+            SqlConnection conn = GenericAccessor.GetConnection();
+            string sql = "use VotingSystemDB; SELECT ElectionName FROM Elections;";
+            List<string> electionNames = new List<string>();
+
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                try
+                {
+                    cmd.Connection.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        /* Read each row and add the election name to the list */
+                        while (reader.Read())
+                        {
+                            electionNames.Add(reader.GetString(0));
+                        }
+                    }
+                }
+                catch (SqlException sx)
+                {
+                    /* Log the error and return whatever was collected (may be empty) */
+                    Console.WriteLine(sx);
+                }
+                cmd.Connection.Close();
+            }
+
+            return electionNames;
+        }
     }
 }
