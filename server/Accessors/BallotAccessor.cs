@@ -1,4 +1,5 @@
 using server.IAccessors;
+using System.Collections;
 using System.Data.SqlClient;
 
 namespace server.Accessors
@@ -99,6 +100,33 @@ namespace server.Accessors
         {
             string sql = "SELECT m.MeasureTitle FROM Measures m INNER JOIN Ballots b ON m.ElectionId = b.ElectionId WHERE b.BallotId = @id";
             return GenericAccessor.GetString(id, sql);
+        }
+
+        public List<string> GetMeasuresFromElection(int electionId)
+        {
+            SqlConnection conn = GenericAccessor.GetConnection();
+            string sql = "use VotingSystemDB; SELECT MeasureTitle FROM Measures WHERE ElectionId = @electionId;";
+            List<string> output = new List<string>();
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@electionId", System.Data.SqlDbType.Int);
+                cmd.Parameters["@electionId"].Value = electionId;
+                try
+                {
+                    cmd.Connection.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        output.Add(reader.GetString(0));
+                    }
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                }
+                cmd.Connection.Close();
+            }
+            return output;
         }
     }
 }

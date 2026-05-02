@@ -87,5 +87,11 @@ namespace server.Managers
             }
             return output;
         }
+
+        public List<string> GetMeasuresFromElection(string election_name)
+        {
+            int electionid = ea.GetElectionIdFromElectionName(election_name);
+            return ba.GetMeasuresFromElection(electionid);
+        }
     }
 }
