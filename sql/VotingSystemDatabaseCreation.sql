@@ -67,7 +67,7 @@ create table Ballots (
     BallotId int identity(1,1) primary key,
     VoterId int not null foreign key references VoterProfile(VoterId),
     ElectionId int not null,
-    SubmissionStatus nvarchar(20) not null default 'draft',
+    SubmissionStatus nvarchar(100) not null default 'draft',
     StartDate datetime2 null,
     EndDate datetime2 null,
     CastAt datetime2 null,

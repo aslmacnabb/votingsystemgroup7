@@ -240,7 +240,7 @@ values
 
 -- Ballot 1: Voter 1 - Mayor Election
 insert into Ballots (VoterId, ElectionId, SubmissionStatus, CastAt, SessionToken)
-select VoterId, @electionId1, 'cast', getdate(), 'SESSION_' + convert(varchar(50), newid())
+select VoterId, @electionId1, 'Measure A: Increase Sales Tax', getdate(), 'SESSION_' + convert(varchar(50), newid())
 from VoterProfile where UserId = @voterUserId1;
 
 declare @ballotId1 int = scope_identity();
@@ -259,7 +259,7 @@ from Measures where MeasureTitle = 'Measure B: Park Expansion';
 
 -- Ballot 2: Voter 1 - City Council Election
 insert into Ballots (VoterId, ElectionId, SubmissionStatus, CastAt, SessionToken)
-select VoterId, @electionId2, 'cast', getdate(), 'SESSION_' + convert(varchar(50), newid())
+select VoterId, @electionId2, 'Measure C: Downtown Parking', getdate(), 'SESSION_' + convert(varchar(50), newid())
 from VoterProfile where UserId = @voterUserId1;
 
 declare @ballotId2 int = scope_identity();
@@ -278,7 +278,7 @@ from Measures where MeasureTitle = 'Measure C: Downtown Parking';
 
 -- Ballot 3: Voter 1 - School Board Election
 insert into Ballots (VoterId, ElectionId, SubmissionStatus, CastAt, SessionToken)
-select VoterId, @electionId3, 'cast', getdate(), 'SESSION_' + convert(varchar(50), newid())
+select VoterId, @electionId3, 'Measure D: School Bond', getdate(), 'SESSION_' + convert(varchar(50), newid())
 from VoterProfile where UserId = @voterUserId1;
 
 declare @ballotId3 int = scope_identity();
@@ -303,7 +303,7 @@ from Measures where MeasureTitle = 'Measure E: School Start Time';
 
 -- Voter 2 - all 3 elections
 insert into Ballots (VoterId, ElectionId, SubmissionStatus, CastAt, SessionToken)
-select VoterId, @electionId1, 'cast', getdate(), 'SESSION_' + convert(varchar(50), newid())
+select VoterId, @electionId1, 'Measure B: Park Expansion', getdate(), 'SESSION_' + convert(varchar(50), newid())
 from VoterProfile where UserId = @voterUserId2;
 declare @b_v2_e1 int = scope_identity();
 
@@ -316,7 +316,7 @@ select @b_v2_e1, MeasureId, 'no'
 from Measures where MeasureTitle = 'Measure A: Increase Sales Tax';
 
 insert into Ballots (VoterId, ElectionId, SubmissionStatus, CastAt, SessionToken)
-select VoterId, @electionId2, 'cast', getdate(), 'SESSION_' + convert(varchar(50), newid())
+select VoterId, @electionId2, 'Measure C: Downtown Parking', getdate(), 'SESSION_' + convert(varchar(50), newid())
 from VoterProfile where UserId = @voterUserId2;
 declare @b_v2_e2 int = scope_identity();
 
@@ -325,7 +325,7 @@ select @b_v2_e2, @officeId2, CandidateId, FirstName + ' ' + LastName
 from Candidates where FirstName = 'Marcus' and LastName = 'Reed';
 
 insert into Ballots (VoterId, ElectionId, SubmissionStatus, CastAt, SessionToken)
-select VoterId, @electionId3, 'cast', getdate(), 'SESSION_' + convert(varchar(50), newid())
+select VoterId, @electionId3, 'Measure E: School Start Time', getdate(), 'SESSION_' + convert(varchar(50), newid())
 from VoterProfile where UserId = @voterUserId2;
 declare @b_v2_e3 int = scope_identity();
 
@@ -339,7 +339,7 @@ from Measures where MeasureTitle = 'Measure D: School Bond';
 
 -- Voter 3 - Mayor and School Board only
 insert into Ballots (VoterId, ElectionId, SubmissionStatus, CastAt, SessionToken)
-select VoterId, @electionId1, 'cast', getdate(), 'SESSION_' + convert(varchar(50), newid())
+select VoterId, @electionId1, 'Measure B: Park Expansion', getdate(), 'SESSION_' + convert(varchar(50), newid())
 from VoterProfile where UserId = @voterUserId3;
 declare @b_v3_e1 int = scope_identity();
 
@@ -352,7 +352,7 @@ select @b_v3_e1, MeasureId, 'yes'
 from Measures where MeasureTitle = 'Measure B: Park Expansion';
 
 insert into Ballots (VoterId, ElectionId, SubmissionStatus, CastAt, SessionToken)
-select VoterId, @electionId3, 'cast', getdate(), 'SESSION_' + convert(varchar(50), newid())
+select VoterId, @electionId3, 'Measure E: School Start Time', getdate(), 'SESSION_' + convert(varchar(50), newid())
 from VoterProfile where UserId = @voterUserId3;
 declare @b_v3_e3 int = scope_identity();
 
@@ -367,7 +367,7 @@ from VoterProfile where UserId = @voterUserId4;
 
 -- Voter 5 - Mayor Election cast
 insert into Ballots (VoterId, ElectionId, SubmissionStatus, CastAt, SessionToken)
-select VoterId, @electionId1, 'cast', getdate(), 'SESSION_' + convert(varchar(50), newid())
+select VoterId, @electionId1, 'Measure B: Park Expansion', getdate(), 'SESSION_' + convert(varchar(50), newid())
 from VoterProfile where UserId = @voterUserId5;
 declare @b_v5_e1 int = scope_identity();
 
