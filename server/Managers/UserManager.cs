@@ -15,7 +15,7 @@ namespace server.Managers
         public bool Authenticate(string username, string password)
         {
             int id = UserAccessor.GetIdFromUsername(username);
-            string expectedPassword = UserAccessor.GetString(id, "PasswordHash");
+            string expectedPassword = UserAccessor.GetString(id, "UserPassword");
             if (password == expectedPassword)
             {
                 return true;
