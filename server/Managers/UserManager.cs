@@ -7,9 +7,9 @@ namespace server.Managers
     {
         private IUserAccessor UserAccessor;
 
-        public UserManager(IUserAccessor userAccessor)
+        public UserManager()
         {
-            UserAccessor = userAccessor;
+            UserAccessor = new UserAccessor();
         }
 
         public bool Authenticate(string username, string password)
@@ -22,6 +22,19 @@ namespace server.Managers
             } else
             {
                 return false;
+            }
+        }
+
+        public string GetAccountType(string username, string password)
+        {
+            if (Authenticate(username, password) == true)
+            {
+                int id = UserAccessor.GetIdFromUsername(username);
+                return UserAccessor.GetString(id, "AccountType");
+            }
+            else
+            {
+                return "Error: invalid username and password!";
             }
         }
     }

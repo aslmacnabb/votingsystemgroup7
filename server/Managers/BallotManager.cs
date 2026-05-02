@@ -16,7 +16,7 @@ namespace server.Managers
         {
             ba = new BallotAccessor();
             ua = new UserAccessor();
-            um = new UserManager(ua);
+            um = new UserManager();
             ea = new ElectionAccessor();
             va = new VoterProfileAccessor();
         }

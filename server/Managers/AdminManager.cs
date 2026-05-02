@@ -18,7 +18,7 @@ namespace server.Managers
 
         public string AddElection(string username, string password, string title)
         {
-            UserManager um = new UserManager(ua);
+            UserManager um = new UserManager();
             if (um.Authenticate(username, password) == true)
             {
                     int userid = ua.GetIdFromUsername(username);
