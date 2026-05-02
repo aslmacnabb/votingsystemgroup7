@@ -72,7 +72,7 @@ namespace server.IAccessors
         /*
         Returns a measure's title from a ballotid.
         */
-        public string GetMeasureFromBallot(int id);
+        public string GetMeasureDecision(int id);
 
         /*
         Returns a list of all measures associated with an electionid.
