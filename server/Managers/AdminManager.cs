@@ -33,6 +33,7 @@ namespace server.Managers
                     int userid = ua.GetIdFromUsername(username);
                     int adminid = apa.GetAdminIdFromUserId(userid);
                     apa.AddElection(adminid, title);
+                    AddBallots(username, password, title);
                     return "Election " + title + " successfully added!";
             }
             else
