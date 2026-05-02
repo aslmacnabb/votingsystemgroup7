@@ -47,17 +47,5 @@ namespace server.IAccessors
         Returns a UserId associated with `username` fr*om the database.
         */
         public int GetIdFromUsername(string username);
-
-        /*
-        Returns a User object with all data fields supplied directly
-        from the database.
-        */
-        public User PullUser(string username);
-
-        /*
-        Updates the database with the information contained in the
-        passed User object.
-        */
-        public void PushUser(User user);
     }
 }

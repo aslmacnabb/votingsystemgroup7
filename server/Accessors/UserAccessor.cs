@@ -74,15 +74,5 @@ namespace server.Accessors
             }
             return output;
         }
-
-        public User PullUser(string username)
-        {
-            return new User();
-        }
-
-        public void PushUser(User user)
-        {
-            return;
-        }
     }
 }
