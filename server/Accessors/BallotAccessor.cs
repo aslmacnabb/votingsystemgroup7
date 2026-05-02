@@ -128,5 +128,28 @@ namespace server.Accessors
             }
             return output;
         }
+
+        public void AddBallot(int voterid, int electionid)
+        {
+            SqlConnection conn = GenericAccessor.GetConnection();
+            string sql = "use VotingSystemDB; insert into Ballots (VoterId, ElectionId, SubmissionStatus, CastAt, SessionToken) values (@voterid, @electionid, 'draft', getdate(), 'SESSION_' + convert(varchar(50), newid()) );";
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@voterid", System.Data.SqlDbType.Int);
+                cmd.Parameters["@voterid"].Value = voterid;
+                cmd.Parameters.Add("@electionid", System.Data.SqlDbType.Int);
+                cmd.Parameters["@electionid"].Value = electionid;
+                try
+                {
+                    cmd.Connection.Open();
+                    cmd.ExecuteScalar();
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                }
+                cmd.Connection.Close();
+            }
+        }
     }
 }

@@ -78,5 +78,10 @@ namespace server.IAccessors
         Returns a list of all measures associated with an electionid.
         */
         public List<string> GetMeasuresFromElection(int electionId);
+
+        /*
+        Adds a Ballot associated with `voterid` and `electionid` to the database.
+        */
+        public void AddBallot(int voterid, int electionid);
     }
 }

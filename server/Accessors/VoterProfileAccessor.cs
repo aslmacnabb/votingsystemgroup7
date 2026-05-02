@@ -1,4 +1,5 @@
 using server.IAccessors;
+using System.Data.SqlClient;
 
 namespace server.Accessors
 {
@@ -54,6 +55,31 @@ namespace server.Accessors
         {
             string sql = "use VotingSystemDB; SELECT VoterId FROM VoterProfile WHERE UserId = @id;";
             return GenericAccessor.GetInt(userid, sql);
+        }
+
+        public int GetNumberOfVoters()
+        {
+            SqlConnection conn = GenericAccessor.GetConnection();
+            string sql = "use VotingSystemDB; SELECT VoterId FROM VoterProfile;";
+            int output = 0;
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                try
+                {
+                    cmd.Connection.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        output = reader.GetInt32(0);
+                    }
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                }
+                cmd.Connection.Close();
+            }
+            return output;
         }
     }
 }

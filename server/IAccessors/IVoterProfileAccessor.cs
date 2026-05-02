@@ -53,5 +53,10 @@ namespace server.IAccessors
         Gets a voterid from the passed `userid`
         */
         public int GetVoterIdFromUserId(int userid);
+
+        /*
+        Returns the number of voters (by voterid)
+        */
+        public int GetNumberOfVoters();
     }
 }
