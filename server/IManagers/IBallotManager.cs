@@ -18,5 +18,10 @@ namespace server.IAccessors
         Sets the submission date associated with `username`'s `election_name` ballot.
         */
         public void SetBallotDate(string username, string password, string election_name, DateTime new_value);
+
+        /*
+        Gets the title of the measure associated with `username`'s `election_name` ballot.
+        */
+        public string GetMeasureFromBallot(string username, string password, string election_name);
     }
 }

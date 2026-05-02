@@ -68,5 +68,10 @@ namespace server.IAccessors
         Returns a ballotid from an electionid and voterid.
         */
         public int GetBallotId(int electionid, int voterid);
+
+        /*
+        Returns a measure's title from a ballotid.
+        */
+        public string GetMeasureFromBallot(int id);
     }
 }

@@ -69,5 +69,23 @@ namespace server.Managers
                 Console.WriteLine("Error: your username and password are not valid!");
             }
         }
+
+        public string GetMeasureFromBallot(string username, string password, string election_name)
+        {
+            string output = "";
+            if (um.Authenticate(username, password) == true)
+            {
+                int userid = ua.GetIdFromUsername(username);
+                int voterid = va.GetVoterIdFromUserId(userid);
+                int electionid = ea.GetElectionIdFromElectionName(election_name);
+                int ballotid = ba.GetBallotId(electionid, voterid);
+                output = ba.GetMeasureFromBallot(ballotid);
+            }
+            else
+            {
+                Console.WriteLine("Error: your username and password are not valid!");
+            }
+            return output;
+        }
     }
 }
