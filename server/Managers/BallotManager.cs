@@ -70,7 +70,7 @@ namespace server.Managers
             }
         }
 
-        public string GetMeasureFromBallot(string username, string password, string election_name)
+        public string GetMeasureDecision(string username, string password, string election_name)
         {
             string output = "";
             if (um.Authenticate(username, password) == true)
@@ -79,7 +79,7 @@ namespace server.Managers
                 int voterid = va.GetVoterIdFromUserId(userid);
                 int electionid = ea.GetElectionIdFromElectionName(election_name);
                 int ballotid = ba.GetBallotId(electionid, voterid);
-                output = ba.GetMeasureFromBallot(ballotid);
+                output = ba.GetMeasureDecision(ballotid);
             }
             else
             {

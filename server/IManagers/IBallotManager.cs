@@ -22,7 +22,7 @@ namespace server.IAccessors
         /*
         Gets the title of the measure associated with `username`'s `election_name` ballot.
         */
-        public string GetMeasureFromBallot(string username, string password, string election_name);
+        public string GetMeasureDecision(string username, string password, string election_name);
 
         /*
         Gets a list of all measures associated with `election_name`.

@@ -96,9 +96,9 @@ namespace server.Accessors
             return output;
         }
 
-        public string GetMeasureFromBallot(int id)
+        public string GetMeasureDecision(int id)
         {
-            string sql = "SELECT b.SubmissionStatus FROM Measures m INNER JOIN Ballots b ON m.ElectionId = b.ElectionId WHERE b.BallotId = @id";
+            string sql = "SELECT b.SubmissionStatus FROM Measures m INNER JOIN Ballots b ON m.ElectionId = m.ElectionId WHERE b.BallotId = @id";
             return GenericAccessor.GetString(id, sql);
         }
 
