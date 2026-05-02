@@ -92,9 +92,11 @@ IAccessors/
 IControllers/IAuthController.cs
 IManagers/
  IAdminManager.cs
+ IBallotManager.cs
  IUserManager.cs
 Managers/
  AdminManager.cs
+ BallotManager.cs
  UserManager.cs
 Models/
  Admin.cs

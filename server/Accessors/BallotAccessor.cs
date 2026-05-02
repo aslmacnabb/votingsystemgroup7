@@ -94,5 +94,11 @@ namespace server.Accessors
             }
             return output;
         }
+
+        public int GetMeasureFromBallot(int ballotid)
+        {
+            string sql = "use VotingSystemDB; SELECT MeasureId FROM Ballots WHERE BallotId = @id;";
+            return GenericAccessor.GetInt(ballotid, sql);
+        }
     }
 }
