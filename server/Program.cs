@@ -6,6 +6,8 @@ am.AddElection("HuskersAdmin", "AE4F2B96EF123FF6D8DD1C74FA7E77F8E2837F30F9E8FBFB
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options => { options.AddDefaultPolicy(policy  => { policy.WithOrigins("http://localhost:5173"); }); });
+
 // Add services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -19,6 +21,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 
 app.UseAuthorization();
 

@@ -1,6 +1,7 @@
 using server.Accessors;
-using server.IManagers;
-using server.IAccessors;
+using server.Accessors.IAccessors;
+using server.Managers.IManagers;
+
 namespace server.Managers
 {
     public class UserManager : IUserManager

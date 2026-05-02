@@ -1,6 +1,6 @@
 using server.Accessors;
-using server.IAccessors;
-using server.IManagers;
+using server.Accessors.IAccessors;
+using server.Managers.IManagers;
 
 namespace server.Managers
 {
