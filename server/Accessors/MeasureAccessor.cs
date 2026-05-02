@@ -37,5 +37,11 @@ namespace server.Accessors
             string sql = GetSetterSqlString(data);
             GenericAccessor.SetString(id, sql, new_value);
         }
+
+        public void AddMeasure(int electionid, string measure_title)
+        {
+            string sql = "use VotingSystemDB; insert into Measures (ElectionId, MeasureTitle, MeasureText, YesDescription, NoDescription, DisplayOrder) values (@id, @new_value, '', '', '', 1);";
+            GenericAccessor.SetString(electionid, sql, measure_title);
+        }
     }
 }

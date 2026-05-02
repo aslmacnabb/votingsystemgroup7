@@ -37,5 +37,11 @@ namespace server.IAccessors
         Sets a string belonging to `id` to `new_value` on field `data.
         */
         public void SetString(int id, string sql, string new_value);
+
+        /*
+        Adds a measure to the database, with name `measure_title` and
+        associated with Election `electionid`.
+        */
+        public void AddMeasure(int electionid, string measure_title);
     }
 }

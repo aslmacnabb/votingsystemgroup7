@@ -6,5 +6,10 @@ namespace server.IManagers
         Adds an election named `title` to the database.
         */
         public string AddElection(string username, string password, string title);
+
+        /*
+        Adds a measure (option) to an election. Must be admin to perform this.
+        */
+        public void AddMeasure(string username, string password, string election_name, string measure_title);
     }
 }
