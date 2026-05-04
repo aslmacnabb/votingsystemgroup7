@@ -5,9 +5,16 @@ semester of CSCE 361.
 
 ## Setup guide
 
-This software should run on anything with .NET 10, MS SQL Server, a recent
-version of NPM, and Vite installed. An automated install script for Ubuntu 24.04
-is included as a tested environment.
+Required software:
+
+- .NET 10.0
+- MS SQL Server 2022. PLEASE READ: If you're not using the install script, you will
+need to run the SQL scripts in the `sql` folder to populate the database. First run
+`VotingSystemDatabaseCreation.sql`, and then run `VotingSystemTestData.sql`.
+- NPM 11 or higher
+- Vite 8 or higher
+
+An automated install script for Ubuntu 24.04 is included as a tested environment.
 
 ### Windows
 
@@ -32,6 +39,8 @@ session. To reenter Ubuntu from a standard Windows command line, simply run `wsl
 Now, to install the program, follow the steps below while in your Ubuntu environment.
 
 ### Linux
+
+# PLEASE READ: THIS PROGRAM WILL ONLY WORK ON BARE METAL OR ON VIRTUAL MACHINES THAT SHARE AN IP WITH THE HOST (e.g. WSL)
 
 Before running the script, please make sure all of your packages are up to date!
 
