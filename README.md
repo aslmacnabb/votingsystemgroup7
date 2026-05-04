@@ -8,13 +8,20 @@ semester of CSCE 361.
 Required software:
 
 - .NET 10.0
-- MS SQL Server 2022. PLEASE READ: If you're not using the install script, you will
-need to run the SQL scripts in the `sql` folder to populate the database. First run
-`VotingSystemDatabaseCreation.sql`, and then run `VotingSystemTestData.sql`.
+- MS SQL Server 2022. 
 - NPM 11 or higher
 - Vite 8 or higher
 
 An automated install script for Ubuntu 24.04 is included as a tested environment.
+
+# MS SQL Configuration
+
+**PLEASE READ**: If you're not using the install script, you will
+need to run the SQL scripts in the `sql` folder to populate the database. First run
+`VotingSystemDatabaseCreation.sql`, and then run `VotingSystemTestData.sql`. Also,
+the admin username for the SQL database MUST be `sa`, and the password MUST be 
+`Charter9 Untapped Carnivore`. These credentials are hardcoded into the .NET server and
+if they differ from the SQL server's actual credentials, the database connection will fail.
 
 ### Windows
 
