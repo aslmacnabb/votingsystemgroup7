@@ -74,7 +74,7 @@ chmod +x install.sh
 # How to run the program
 
 1. Ensure MS SQL Server is running after supplying it with data by running the
-[necessary scripts][https://github.com/aslmacnabb/votingsystemgroup7#setup-guide].
+[necessary scripts](https://github.com/aslmacnabb/votingsystemgroup7#setup-guide).
 
 2. Run the server component.
 
