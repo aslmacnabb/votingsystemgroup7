@@ -17,28 +17,28 @@ namespace server.Tests
         [TestMethod]
         public void GetMeasuresFromElection_ReturnsList()
         {
-            List<string> measures = bm.GetMeasuresFromElection("2026 Mayoral Election");
+            List<string> measures = bm.GetMeasuresFromElection("Mayor Election");
             Assert.IsNotNull(measures);
         }
 
         [TestMethod]
         public void GetMeasuresFromElection_ReturnsTwoMeasures()
         {
-            List<string> measures = bm.GetMeasuresFromElection("2026 Mayoral Election");
+            List<string> measures = bm.GetMeasuresFromElection("Mayor Election");
             Assert.AreEqual(2, measures.Count);
         }
 
         [TestMethod]
         public void GetMeasuresFromElection_ContainsMeasureA()
         {
-            List<string> measures = bm.GetMeasuresFromElection("2026 Mayoral Election");
+            List<string> measures = bm.GetMeasuresFromElection("Mayor Election");
             CollectionAssert.Contains(measures, "Measure A: Increase Sales Tax");
         }
 
         [TestMethod]
         public void GetMeasuresFromElection_ContainsMeasureB()
         {
-            List<string> measures = bm.GetMeasuresFromElection("2026 Mayoral Election");
+            List<string> measures = bm.GetMeasuresFromElection("Mayor Election");
             CollectionAssert.Contains(measures, "Measure B: Park Expansion");
         }
 
@@ -53,7 +53,7 @@ namespace server.Tests
         public void GetAllElectionNames_ContainsMayoralElection()
         {
             List<string> elections = bm.GetAllElectionNames();
-            CollectionAssert.Contains(elections, "2026 Mayoral Election");
+            CollectionAssert.Contains(elections, "Mayor Election");
         }
     }
 }

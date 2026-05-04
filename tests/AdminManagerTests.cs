@@ -17,14 +17,14 @@ namespace server.Tests
         [TestMethod]
         public void AddElection_ValidCredentials_ReturnsSuccess()
         {
-            string result = am.AddElection("HuskersAdmin", "password", "Test Election");
+            string result = am.AddElection("admin", "admin", "Test Election");
             Assert.AreEqual("Election Test Election successfully added!", result);
         }
 
         [TestMethod]
         public void AddElection_InvalidCredentials_ReturnsError()
         {
-            string result = am.AddElection("HuskersAdmin", "wrongpassword", "Test Election");
+            string result = am.AddElection("admin", "wrongpassword", "Test Election");
             Assert.AreEqual("Error: your username and password are not valid!", result);
         }
     }

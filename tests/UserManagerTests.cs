@@ -17,7 +17,7 @@ namespace server.Tests
         [TestMethod]
         public void Authenticate_ValidCredentials_ReturnsTrue()
         {
-            bool result = um.Authenticate("Bob", "password");
+            bool result = um.Authenticate("Bob", "Burger");
             Assert.IsTrue(result);
         }
 
@@ -31,7 +31,7 @@ namespace server.Tests
         [TestMethod]
         public void GetAccountType_ValidAdmin_ReturnsAdmin()
         {
-            string result = um.GetAccountType("HuskersAdmin", "password");
+            string result = um.GetAccountType("admin", "admin");
             Assert.AreEqual("admin", result);
         }
 
