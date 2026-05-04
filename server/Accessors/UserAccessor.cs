@@ -55,7 +55,7 @@ namespace server.Accessors
         {
             SqlConnection conn = GenericAccessor.GetConnection();
             string sql = "use VotingSystemDB; SELECT UserId FROM UserAccount WHERE Username = @username;";
-            int output;
+            int output = -1;
             using (SqlCommand cmd = new SqlCommand(sql, conn))
             {
                 cmd.Parameters.Add("@username", System.Data.SqlDbType.NVarChar, 50);
@@ -63,7 +63,11 @@ namespace server.Accessors
                 try
                 {
                     cmd.Connection.Open();
-                    output = (int)cmd.ExecuteScalar();
+                    var result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        output = (int)result;
+                    }
                 }
                 catch (SqlException sx)
                 {

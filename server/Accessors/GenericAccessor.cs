@@ -8,10 +8,11 @@ namespace server.Accessors
         public static SqlConnection GetConnection()
         {
             SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = "Data Source = localhost;" +
-            "Initial Catalog=VotingSystemDB;" +
-            "User id=sa;" +
-            "Password=#LaptopINUX$4128;";
+            conn.ConnectionString = conn.ConnectionString =
+        "Data Source=localhost;" +
+        "Initial Catalog=VotingSystemDB;" +
+        "Trusted_Connection=True;" +
+        "TrustServerCertificate=True;";
             return conn;
         }
 

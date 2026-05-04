@@ -151,5 +151,49 @@ namespace server.Accessors
                 cmd.Connection.Close();
             }
         }
+
+        public List<Models.VoterStatusDto> GetVoterVotingStatusByElection(int electionId)
+        {
+            SqlConnection conn = GenericAccessor.GetConnection();
+            string sql = @"use VotingSystemDB; 
+SELECT ua.Username, vp.FirstName, vp.LastName, b.SubmissionStatus, b.CastAt 
+FROM UserAccount ua 
+INNER JOIN VoterProfile vp ON ua.UserId = vp.UserId 
+LEFT JOIN Ballots b ON vp.VoterId = b.VoterId AND b.ElectionId = @electionId 
+WHERE ua.AccountType = 'voter';";
+            List<Models.VoterStatusDto> output = new List<Models.VoterStatusDto>();
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@electionId", System.Data.SqlDbType.Int);
+                cmd.Parameters["@electionId"].Value = electionId;
+                try
+                {
+                    cmd.Connection.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string submissionStatus = reader.IsDBNull(3) ? "none" : reader.GetString(3);
+                            DateTime? castAt = reader.IsDBNull(4) ? null : reader.GetDateTime(4);
+                            output.Add(new Models.VoterStatusDto
+                            {
+                                Username = reader.GetString(0),
+                                FirstName = reader.GetString(1),
+                                LastName = reader.GetString(2),
+                                SubmissionStatus = submissionStatus,
+                                HasVoted = string.Equals(submissionStatus, "cast", StringComparison.OrdinalIgnoreCase),
+                                CastAt = castAt
+                            });
+                        }
+                    }
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                }
+                cmd.Connection.Close();
+            }
+            return output;
+        }
     }
 }

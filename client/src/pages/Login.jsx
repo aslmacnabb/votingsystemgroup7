@@ -10,13 +10,13 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const role = login(username, password);
+    const role = await login(username, password);
 
     if (role === "admin") navigate("/admin");
-    else if (role === "user") navigate("/hub");
+    else if (role === "user" || role === "voter") navigate("/hub");
     else alert("Invalid login");
   };
 

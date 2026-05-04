@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using server.Managers;
 using server.Accessors;
+using server.Models;
 
 namespace server.Controllers
 {
@@ -84,6 +85,25 @@ namespace server.Controllers
             {
                 Console.WriteLine("Error: your username and password are not valid!");
             }
+        }
+
+        [HttpGet("election/{id}/voterstatus")]
+        public ActionResult<List<VoterStatusDto>> GetVoterStatus(int id, string username, string password)
+        {
+            UserManager um = new UserManager();
+            if (!um.Authenticate(username, password))
+            {
+                return Unauthorized();
+            }
+
+            if (um.GetAccountType(username, password) != "admin")
+            {
+                return Forbid();
+            }
+
+            BallotAccessor ba = new BallotAccessor();
+            List<VoterStatusDto> statuses = ba.GetVoterVotingStatusByElection(id);
+            return Ok(statuses);
         }
     }
 }

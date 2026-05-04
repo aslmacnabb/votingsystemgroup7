@@ -1,85 +1,72 @@
 import { useEffect, useState } from "react";
-import { getElection } from "../services/api";
+import { getElections } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function AdminDashboard() {
-  const [ballots, setBallots] = useState([]);
-  const [newBallotTitle, setNewBallotTitle] = useState("");
-  const [newIssue, setNewIssue] = useState("");
-  const [selectedBallot, setSelectedBallot] = useState(null);
+  const [elections, setElections] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
-    getElection().then(setBallots);
-  }, []);
-
-  const addBallot = () => {
-    if (newBallotTitle.trim()) {
-      const newBallot = {
-        id: ballots.length + 1,
-        title: newBallotTitle,
-        options: []
-      };
-      setBallots([...ballots, newBallot]);
-      setNewBallotTitle("");
+    if (!user || user.role !== "admin") {
+      navigate("/");
+      return;
     }
-  };
 
-  const addIssue = () => {
-    if (newIssue.trim() && selectedBallot !== null) {
-      const updatedBallots = ballots.map(b => {
-        if (b.id === selectedBallot) {
-          return {
-            ...b,
-            options: [...b.options, { id: b.options.length + 1, text: newIssue }]
-          };
+    const loadElections = async () => {
+      try {
+        const data = await getElections();
+        if (Array.isArray(data)) {
+          setElections(data);
+        } else if (data && data.message) {
+          setError(data.message);
         }
-        return b;
-      });
-      setBallots(updatedBallots);
-      setNewIssue("");
-    }
+      } catch (err) {
+        setError("Failed to load elections");
+        console.error(err);
+      }
+    };
+
+    loadElections();
+  }, [user, navigate]);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   return (
     <div className="app-card">
-      <h1>Admin Panel</h1>
+      <h1>Admin Dashboard</h1>
+      <p>Welcome, Admin {user?.username}!</p>
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
       <div style={{ marginBottom: "20px" }}>
-        <h3>Add New Ballot</h3>
-        <input
-          type="text"
-          placeholder="Ballot Title"
-          value={newBallotTitle}
-          onChange={(e) => setNewBallotTitle(e.target.value)}
-        />
-        <button onClick={addBallot}>Add Ballot</button>
+        <h2>Elections</h2>
+        {elections && elections.length > 0 ? (
+          <div>
+            {elections.map((election) => (
+              <div key={election.electionId} style={{ padding: "10px", border: "1px solid #ddd", marginBottom: "10px" }}>
+                <h3>{election.electionName}</h3>
+                <p>{election.description}</p>
+                <p><strong>Offices:</strong> {election.offices?.length || 0}</p>
+                <p><strong>Measures:</strong> {election.measures?.length || 0}</p>
+                <button onClick={() => navigate(`/admin/ballot/${election.electionId}`)}>
+                  View Details
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No elections available</p>
+        )}
       </div>
 
-      <div style={{ marginBottom: "20px" }}>
-        <h3>Add Issue to Ballot</h3>
-        <select onChange={(e) => setSelectedBallot(Number(e.target.value))}>
-          <option value="">Select Ballot</option>
-          {ballots.map(b => (
-            <option key={b.id} value={b.id}>{b.title}</option>
-          ))}
-        </select>
-        <input
-          type="text"
-          placeholder="Issue Text"
-          value={newIssue}
-          onChange={(e) => setNewIssue(e.target.value)}
-        />
-        <button onClick={addIssue}>Add Issue</button>
-      </div>
-
-      <h3>Existing Ballots</h3>
-      {ballots.map((b) => (
-        <div key={b.id} onClick={() => navigate(`/admin/ballot/${b.id}`)} style={{ cursor: "pointer", padding: "10px", border: "1px solid #ddd", marginBottom: "10px" }}>
-          <strong>{b.title}</strong>
-          <div>Issues: {b.options.length}</div>
-        </div>
-      ))}
+      <button onClick={handleLogout} style={{ backgroundColor: "#f44336", color: "white" }}>
+        Logout
+      </button>
     </div>
   );
 }
