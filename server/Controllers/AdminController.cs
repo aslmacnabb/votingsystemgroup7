@@ -11,7 +11,7 @@ namespace server.Controllers
     public class AdminController : ControllerBase
     {
         
-        // POST api/<AdminController>
+        
         [HttpPost("election")]
         public string AddElection(string username, string password, string title)
         {
@@ -33,7 +33,7 @@ namespace server.Controllers
             }
         }
 
-        // POST api/<AdminController>
+        
         [HttpPost("measure")]
         public void AddMeasure(string username, string password, string election_name, string measure_title)
         {
@@ -58,7 +58,7 @@ namespace server.Controllers
             }
         }
 
-        // POST api/<AdminController>
+        
         [HttpPost("ballot")]
         public void AddBallots(string username, string password, string election_name)
         {

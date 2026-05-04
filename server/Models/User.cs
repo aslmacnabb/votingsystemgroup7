@@ -1,6 +1,6 @@
 public class User
 {
-#pragma warning disable CS0169 // Field is never used
+#pragma warning disable CS0169 
     private string Username;
     private string Password;
     private string Email;

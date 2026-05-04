@@ -90,7 +90,7 @@ export default function Ballot() {
         return;
       }
 
-      // Get the first election ID from current election for submission
+      
       const result = await submitVote(
         votes,
         user.username,
