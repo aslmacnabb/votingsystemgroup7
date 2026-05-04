@@ -62,19 +62,27 @@ chmod +x install.sh
 ./install.sh
 ```
 
-4. To run the server component:
+# How to run the program
+
+1. Ensure MS SQL Server is running.
+
+2. Run the server component.
 
 ```bash
 cd server
 dotnet run
 ```
 
-5. To run the client component:
+3. In a separate terminal window, run the client component
 
 ```bash
 cd client
 npm run dev
 ```
+
+4. Navigate to [http://localhost:5173](http://localhost:5173) in a browser.
+To test admin functionality, use username `admin` and password `admin`.
+To test voter functionality, use username `Bob` and password `Burger`.
 
 ## SQL credentials
 
