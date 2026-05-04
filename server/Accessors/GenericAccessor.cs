@@ -9,10 +9,10 @@ namespace server.Accessors
         {
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = conn.ConnectionString =
-        "Data Source=localhost;" +
-        "Initial Catalog=VotingSystemDB;" +
-        "Trusted_Connection=True;" +
-        "TrustServerCertificate=True;";
+            "Data Source=localhost;" +
+            "Initial Catalog=VotingSystemDB;" +
+            "User id=sa;" +
+            "Password=Charter9 Untapped Carnivore;";
             return conn;
         }
 
