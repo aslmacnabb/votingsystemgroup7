@@ -1,5 +1,5 @@
 # binary files
 server/bin/
 server/obj/
-tests/*/obj
-tests/*/bin
+tests/obj
+tests/bin
