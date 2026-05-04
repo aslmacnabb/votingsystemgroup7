@@ -1,5 +1,5 @@
-using server.IAccessors;
 using System.Data.SqlClient;
+using server.Accessors.IAccessors;
 
 namespace server.Accessors
 {
@@ -8,7 +8,8 @@ namespace server.Accessors
         public static SqlConnection GetConnection()
         {
             SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = "Data Source = localhost;" +
+            conn.ConnectionString = conn.ConnectionString =
+            "Data Source=localhost;" +
             "Initial Catalog=VotingSystemDB;" +
             "User id=sa;" +
             "Password=Charter9 Untapped Carnivore;";

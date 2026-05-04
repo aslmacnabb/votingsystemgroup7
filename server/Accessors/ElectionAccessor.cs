@@ -1,5 +1,6 @@
-using server.IAccessors;
 using System.Data.SqlClient;
+using server.Accessors.IAccessors;
+using server.Models;
 
 namespace server.Accessors
 {
@@ -110,6 +111,81 @@ namespace server.Accessors
             }
 
             return electionNames;
+        }
+
+        public ElectionDto GetElectionById(int electionId)
+        {
+            SqlConnection conn = GenericAccessor.GetConnection();
+            string sql = "use VotingSystemDB; SELECT ElectionId, ElectionName, Description, StartDate, EndDate, IsPublished FROM Elections WHERE ElectionId = @electionId;";
+            ElectionDto election = null;
+            OfficeAccessor oa = new OfficeAccessor();
+            MeasureAccessor ma = new MeasureAccessor();
+
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@electionId", System.Data.SqlDbType.Int);
+                cmd.Parameters["@electionId"].Value = electionId;
+                try
+                {
+                    cmd.Connection.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            election = new ElectionDto
+                            {
+                                ElectionId = reader.GetInt32(0),
+                                ElectionName = reader.GetString(1),
+                                Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                                StartDate = reader.GetDateTime(3),
+                                EndDate = reader.GetDateTime(4),
+                                IsPublished = reader.GetBoolean(5),
+                                Offices = oa.GetOfficesByElection(electionId),
+                                Measures = ma.GetMeasuresByElection(electionId)
+                            };
+                        }
+                    }
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                }
+                cmd.Connection.Close();
+            }
+            return election;
+        }
+
+        public List<ElectionDto> GetAllElections()
+        {
+            SqlConnection conn = GenericAccessor.GetConnection();
+            string sql = "use VotingSystemDB; SELECT ElectionId FROM Elections;";
+            List<ElectionDto> elections = new List<ElectionDto>();
+
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                try
+                {
+                    cmd.Connection.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int electionId = reader.GetInt32(0);
+                            ElectionDto election = GetElectionById(electionId);
+                            if (election != null)
+                            {
+                                elections.Add(election);
+                            }
+                        }
+                    }
+                }
+                catch (SqlException sx)
+                {
+                    Console.WriteLine(sx);
+                }
+                cmd.Connection.Close();
+            }
+            return elections;
         }
     }
 }

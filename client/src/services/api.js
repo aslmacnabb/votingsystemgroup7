@@ -1,71 +1,46 @@
-let ballots = [
-  {
-    id: 1,
-    title: "Mayor Election",
-    options: [
-      { id: 1, text: "Issue 1" },
-      { id: 2, text: "Issue 2" }
-    ]
-  },
-  {
-    id: 2,
-    title: "City Council Election",
-    options: [
-      { id: 7, text: "Issue 7" },
-      { id: 8, text: "Issue 8" }
-    ]
-  },
-  {
-    id: 3,
-    title: "School Board Election",
-    options: [
-      { id: 9, text: "Issue 9" },
-    { id: 10, text: "Issue 10" }
-  ]
- }
-];
+const API_BASE = "http://localhost:5136/api";
 
-let userVotes = [
-  {
-    id: 1,
-    username: "user",
-    votes: [
-      { electionId: 1, optionId: 1 },
-      { electionId: 2, optionId: 7 }
-    ]
-  },
-  {
-    id: 2,
-    username: "user2",
-    votes: [
-      { electionId: 1, optionId: 2 },
-      { electionId: 2, optionId: 8 }
-    ]
-  }
-];
 
-export async function getElection() {
-  return ballots;
-}
-
-export async function submitVote(votes, username = "user") {
-  userVotes.push({
-    id: userVotes.length + 1,
-    username,
-    votes
+export async function login(username, password) {
+  const response = await fetch(`${API_BASE}/user/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
   });
+  return response.json();
 }
 
-export async function getUserBallots(username = "user") {
-  return userVotes.filter(v => v.username === username);
+
+export async function getElection(electionId) {
+  const response = await fetch(`${API_BASE}/ballot/election/${electionId}`);
+  return response.json();
 }
 
-let mockUsers = ["alice", "bob", "charlie", "user"];
-
-export async function getAdminBallotStatus() {
-  const votedUsers = [...new Set(userVotes.map(v => v.username))];
-  return mockUsers.map(username => ({
-    username,
-    voted: votedUsers.includes(username)
-  }));
+export async function getElections() {
+  const response = await fetch(`${API_BASE}/ballot/elections`);
+  return response.json();
 }
+
+
+export async function submitVote(votes, username, password, electionId) {
+  const response = await fetch(`${API_BASE}/ballot/submit`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password, electionId, votes })
+  });
+  return response.json();
+}
+
+export async function getUserBallots(username, password) {
+  const response = await fetch(`${API_BASE}/ballot/history?username=${username}&password=${password}`);
+  return response.json();
+}
+
+
+export async function getAdminBallotStatus(electionId, username, password) {
+  const response = await fetch(
+    `${API_BASE}/admin/election/${electionId}/voterstatus?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+  );
+  return response.json();
+}
+
