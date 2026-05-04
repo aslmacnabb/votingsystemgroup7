@@ -94,6 +94,7 @@ dotnet run
 
 ```bash
 cd client
+npm install -D vite
 npm run dev
 ```
 
